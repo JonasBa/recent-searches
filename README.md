@@ -15,7 +15,7 @@
 [![PRs Welcome][prs-badge]][prs]
 [![size][size-badge]][unpkg-dist] [![gzip size][gzip-badge]][unpkg-dist]
 
-![Example implementation](https://github.com/JonasBa/recent-searches/blob/master/docs/RecentSearchesUX.gif)
+![Example implementation](https://raw.githubusercontent.com/JonasBa/recent-searches/master/RecentSearchesUX.gif)
 
 ## The problem
 
