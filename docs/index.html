@@ -1,0 +1,1293 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>recent-searches</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">recent-searches</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1> recent-searches</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<h1 align="center">
+					recent-searches 🕵️‍♀️🕵️‍♂️
+					<br>
+					<!-- <img src="https://recent-searches.netlify.com/logo/recent-searches.svg" alt="recent-searches logo" title="recent-searches logo" width="300"> -->
+					<br>
+				</h1>
+				<p align="center" style="font-size: 1.2rem;">A JavaScript module that helps anyone build recent searches functionality.
+				</p>
+				<hr />
+				<p><a href="https://travis-ci.org/recent-searches-js/recent-searches"><img src="https://img.shields.io/travis/recent-searches-js/recent-searches.svg?style=flat-square" alt="Build Status"></a>
+					<a href="https://codecov.io/github/recent-searches-js/recent-searches"><img src="https://img.shields.io/codecov/c/github/recent-searches-js/recent-searches.svg?style=flat-square" alt="Code Coverage"></a>
+					<a href="http://npmcharts.com/compare/recent-searches"><img src="https://img.shields.io/npm/dm/recent-searches.svg?style=flat-square" alt="downloads"></a> <a href="https://www.npmjs.com/package/recent-searches"><img src="https://img.shields.io/npm/v/recent-searches.svg?style=flat-square" alt="version"></a>
+				<a href="https://github.com/recent-searches-js/recent-searches/blob/master/LICENSE"><img src="https://img.shields.io/npm/l/recent-searches.svg?style=flat-square" alt="MIT License"></a></p>
+				<p><a href="http://makeapullrequest.com"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square" alt="PRs Welcome"></a></p>
+				<p><a href="https://unpkg.com/recent-searches/dist/"><img src="http://img.badgesize.io/https://unpkg.com/recent-searches/dist/recent-searches.umd.min.js?label=size&style=flat-square" alt="size"></a> <a href="https://unpkg.com/recent-searches/dist/"><img src="http://img.badgesize.io/https://unpkg.com/recent-searches/dist/recent-searches.umd.min.js?compression=gzip&label=gzip%20size&style=flat-square" alt="gzip size"></a>
+				<a href="https://unpkg.com/recent-searches/dist/"><img src="https://img.shields.io/badge/module%20formats-umd%2C%20cjs%2C%20es-green.svg?style=flat-square" alt="module formats: umd, cjs, and es"></a></p>
+				<h2 id="the-problem">The problem</h2>
+				<p>Building recent searches experience can be trickier than you think, recent-searches module helps you easily build that experience and handle the edge cases while also giving you flexibility on how to rank those suggestions. Since I couldn&#39;t find a good existing solution I decided to build one.</p>
+				<h2 id="this-solution">This solution</h2>
+				<p>recent-searches is a module that handles storing, retrieving and ranking of recent searches. If available, it uses <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage">localStorage</a> to store suggestions cross sessions and in the rare cases where it might not be available uses a fallback memory storage, thus loosing it&#39;s cross session functionality.</p>
+				<p>The module handles expiry of searches, ranking of results and degrading their ranking through their lifecycle as well as a simple prefix search.</p>
+				<h2 id="table-of-contents">Table of Contents</h2>
+				<!-- START doctoc -->
+				<!-- END doctoc -->
+				<h2 id="installation">Installation</h2>
+				<p>recent-searches is published on npm&#39;s public registry, you can install it as a dependancy of your project with the following command.</p>
+				<pre><code>npm <span class="hljs-keyword">install</span> <span class="hljs-comment">--save recent-searches</span></code></pre><h2 id="usage">Usage</h2>
+				<blockquote>
+					<p><a href="https://codesandbox.io/s/6z67jvklw3">Try it out in the browser</a></p>
+				</blockquote>
+				<p>Initializing the module</p>
+				<pre><code class="language-ts"><span class="hljs-keyword">import</span> RecentSearches <span class="hljs-keyword">from</span> <span class="hljs-string">'recent-searches'</span>
+
+<span class="hljs-keyword">const</span> searches = <span class="hljs-keyword">new</span> RecentSearches({
+  ttl: <span class="hljs-built_in">number</span>, <span class="hljs-comment">// Optional: ttl of searches in milliseconds, default to 1h (1000 * 60 * 60)</span>
+  limit: <span class="hljs-built_in">number</span>, <span class="hljs-comment">// Optional: max number of entries that will be persisted, defaults is 10</span>
+  <span class="hljs-keyword">namespace</span>: <span class="hljs-built_in">string</span>, <span class="hljs-comment">// Optional: custom localStorage namespace</span>
+  rankBy: <span class="hljs-built_in">string</span> <span class="hljs-comment">// Optional: ranking strategy of recent searches, "PROXIMITY" | "TIME" | "PROXIMITY_AND_TIME", default is "PROXIMITY_AND_TIME"</span>
+})
+</code></pre>
+				<p>Setting and retrieving relevant searches.</p>
+				<pre><code class="language-ts"><span class="hljs-comment">// To retrieve searches for a given query</span>
+<span class="hljs-keyword">const</span> previousSearchesForJohn = searches.getRecentSearches(<span class="hljs-string">"John"</span>)
+<span class="hljs-comment">// [{query: "John", timestamp: ...}, {query: "Marc John", timestamp: ...}] </span>
+
+<span class="hljs-comment">// To set a recent search</span>
+searches.setRecentSearch(<span class="hljs-string">"John"</span>, resultData)</code></pre>
+				<h2 id="basic-props">Basic Props</h2>
+				<p>This is the list of props that you should probably know about. There are some
+				<a href="#advanced-props">advanced props</a> below as well.</p>
+				<h3 id="children">children</h3>
+				<blockquote>
+					<p><code>function({})</code> | <em>required</em></p>
+				</blockquote>
+				<p>This is called with an object. Read more about the properties of this object in
+				the section &quot;<a href="#children-function">Children Function</a>&quot;.</p>
+				<h3 id="itemtostring">itemToString</h3>
+				<blockquote>
+					<p><code>function(item: any)</code> | defaults to: <code>i =&gt; (i == null ? &#39;&#39; : String(i))</code></p>
+				</blockquote>
+				<p>Used to determine the string value for the selected item (which is used to
+				compute the <code>inputValue</code>).</p>
+				<h3 id="onchange">onChange</h3>
+				<blockquote>
+					<p><code>function(selectedItem: any, stateAndHelpers: object)</code> | optional, no useful
+					default</p>
+				</blockquote>
+				<p>Called when the user selects an item and the selected item has changed. Called
+					with the item that was selected and the new state of <code>recent-searches</code>. (see
+				<code>onStateChange</code> for more info on <code>stateAndHelpers</code>).</p>
+				<ul>
+					<li><code>selectedItem</code>: The item that was just selected</li>
+					<li><code>stateAndHelpers</code>: This is the same thing your <code>children</code> function is
+					called with (see <a href="#children-function">Children Function</a>)</li>
+				</ul>
+				<h3 id="statereducer">stateReducer</h3>
+				<blockquote>
+					<p><code>function(state: object, changes: object)</code> | optional</p>
+				</blockquote>
+				<p><strong>🚨 This is a really handy power feature 🚨</strong></p>
+				<p>This function will be called each time <code>recent-searches</code> sets its internal state
+					(or calls your <code>onStateChange</code> handler for control props). It allows you to
+					modify the state change that will take place which can give you fine grain
+					control over how the component interacts with user updates without having to
+					use <a href="#control-props">Control Props</a>. It gives you the current state and the
+				state that will be set, and you return the state that you want to set.</p>
+				<ul>
+					<li><code>state</code>: The full current state of recent-searches.</li>
+					<li><code>changes</code>: These are the properties that are about to change. This also has a
+						<code>type</code> property which you can learn more about in the
+					<a href="#statechangetypes"><code>stateChangeTypes</code></a> section.</li>
+				</ul>
+				<pre><code class="language-jsx"><span class="hljs-keyword">const</span> ui = (
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">recent-searches</span> <span class="hljs-attr">stateReducer</span>=<span class="hljs-string">{stateReducer}</span>&gt;</span>{/* your callback */}<span class="hljs-tag">&lt;/<span class="hljs-name">recent-searches</span>&gt;</span>
+)
+
+function stateReducer(state, changes) {
+  // this prevents the menu from being closed when the user
+  // selects an item with a keyboard or mouse
+  switch (changes.type) {
+    case recent-searches.stateChangeTypes.keyDownEnter:
+    case recent-searches.stateChangeTypes.clickItem:
+      return {
+        ...changes,
+        isOpen: state.isOpen,
+        highlightedIndex: state.highlightedIndex,
+      }
+    default:
+      return changes
+  }
+}</span></code></pre>
+				<blockquote>
+					<p>NOTE: This is only called when state actually changes. You should not attempt
+						to use this to handle events. If you wish to handle events, put your event
+						handlers directly on the elements (make sure to use the prop getters though!
+						For example: <code>&lt;input onBlur={handleBlur} /&gt;</code> should be
+						<code>&lt;input {...getInputProps({onBlur: handleBlur})} /&gt;</code>). Also, your reducer
+						function should be &quot;pure.&quot; This means it should do nothing other than return
+					the state changes you want to have happen.</p>
+				</blockquote>
+				<h2 id="advanced-props">Advanced Props</h2>
+				<h3 id="initialselecteditem">initialSelectedItem</h3>
+				<blockquote>
+					<p><code>any</code> | defaults to <code>null</code></p>
+				</blockquote>
+				<p>Pass an item or an array of items that should be selected when recent-searches is initialized.</p>
+				<h3 id="initialinputvalue">initialInputValue</h3>
+				<blockquote>
+					<p><code>string</code> | defaults to <code>&#39;&#39;</code></p>
+				</blockquote>
+				<p>This is the initial input value when recent-searches is initialized.</p>
+				<h3 id="initialhighlightedindex">initialHighlightedIndex</h3>
+				<blockquote>
+					<p><code>number</code>/<code>null</code> | defaults to <code>defaultHighlightedIndex</code></p>
+				</blockquote>
+				<p>This is the initial value to set the highlighted index to when recent-searches is initialized.</p>
+				<h3 id="initialisopen">initialIsOpen</h3>
+				<blockquote>
+					<p><code>boolean</code> | defaults to <code>defaultIsOpen</code></p>
+				</blockquote>
+				<p>This is the initial <code>isOpen</code> value when recent-searches is initialized.</p>
+				<h3 id="defaulthighlightedindex">defaultHighlightedIndex</h3>
+				<blockquote>
+					<p><code>number</code>/<code>null</code> | defaults to <code>null</code></p>
+				</blockquote>
+				<p>This is the value to set the <code>highlightedIndex</code> to anytime recent-searches is reset,
+				when the the selection is cleared, when an item is selected or when the inputValue is changed.</p>
+				<h3 id="defaultisopen">defaultIsOpen</h3>
+				<blockquote>
+					<p><code>boolean</code> | defaults to <code>false</code></p>
+				</blockquote>
+				<p>This is the value to set the <code>isOpen</code> to anytime recent-searches is reset, when the
+				the selection is cleared, or when an item is selected.</p>
+				<h3 id="selecteditemchanged">selectedItemChanged</h3>
+				<blockquote>
+					<p><code>function(prevItem: any, item: any)</code> | defaults to: <code>(prevItem, item) =&gt; (prevItem !== item)</code></p>
+				</blockquote>
+				<p>Used to determine if the new <code>selectedItem</code> has changed compared to the previous
+				<code>selectedItem</code> and properly update recent-searches&#39;s internal state.</p>
+				<h3 id="geta11ystatusmessage">getA11yStatusMessage</h3>
+				<blockquote>
+					<p><code>function({/* see below */})</code> | default messages provided in English</p>
+				</blockquote>
+				<p>This function is passed as props to a <code>Status</code> component nested within and
+				allows you to create your own assertive ARIA statuses.</p>
+				<p>A default <code>getA11yStatusMessage</code> function is provided that will check
+					<code>resultCount</code> and return &quot;No results.&quot; or if there are results but no item is
+					highlighted, &quot;<code>resultCount</code> results are available, use up and down arrow keys to
+					navigate.&quot; If an item is highlighted it will run <code>itemToString(highlightedItem)</code>
+				and display the value of the <code>highlightedItem</code>.</p>
+				<p>The object you are passed to generate your status message has the following
+				properties:</p>
+				<!-- This table was generated via http://www.tablesgenerator.com/markdown_tables -->
+				<table>
+					<thead>
+						<tr>
+							<th>property</th>
+							<th>type</th>
+							<th>description</th>
+						</tr>
+					</thead>
+					<tbody><tr>
+							<td><code>highlightedIndex</code></td>
+							<td><code>number</code>/<code>null</code></td>
+							<td>The currently highlighted index</td>
+						</tr>
+						<tr>
+							<td><code>highlightedItem</code></td>
+							<td><code>any</code></td>
+							<td>The value of the highlighted item</td>
+						</tr>
+						<tr>
+							<td><code>inputValue</code></td>
+							<td><code>string</code></td>
+							<td>The current input value</td>
+						</tr>
+						<tr>
+							<td><code>isOpen</code></td>
+							<td><code>boolean</code></td>
+							<td>The <code>isOpen</code> state</td>
+						</tr>
+						<tr>
+							<td><code>itemToString</code></td>
+							<td><code>function(any)</code></td>
+							<td>The <code>itemToString</code> function (see props) for getting the string value from one of the options</td>
+						</tr>
+						<tr>
+							<td><code>previousResultCount</code></td>
+							<td><code>number</code></td>
+							<td>The total items showing in the dropdown the last time the status was updated</td>
+						</tr>
+						<tr>
+							<td><code>resultCount</code></td>
+							<td><code>number</code></td>
+							<td>The total items showing in the dropdown</td>
+						</tr>
+						<tr>
+							<td><code>selectedItem</code></td>
+							<td><code>any</code></td>
+							<td>The value of the currently selected item</td>
+						</tr>
+				</tbody></table>
+				<h3 id="onselect">onSelect</h3>
+				<blockquote>
+					<p><code>function(selectedItem: any, stateAndHelpers: object)</code> | optional, no useful
+					default</p>
+				</blockquote>
+				<p>Called when the user selects an item, regardless of the previous selected item.
+					Called with the item that was selected and the new state of <code>recent-searches</code>. (see
+				<code>onStateChange</code> for more info on <code>stateAndHelpers</code>).</p>
+				<ul>
+					<li><code>selectedItem</code>: The item that was just selected</li>
+					<li><code>stateAndHelpers</code>: This is the same thing your <code>children</code> function is
+					called with (see <a href="#children-function">Children Function</a>)</li>
+				</ul>
+				<h3 id="onstatechange">onStateChange</h3>
+				<blockquote>
+					<p><code>function(changes: object, stateAndHelpers: object)</code> | optional, no useful
+					default</p>
+				</blockquote>
+				<p>This function is called anytime the internal state changes. This can be useful
+					if you&#39;re using recent-searches as a &quot;controlled&quot; component, where you manage some or
+					all of the state (e.g. isOpen, selectedItem, highlightedIndex, etc) and then
+					pass it as props, rather than letting recent-searches control all its state itself.
+					The parameters both take the shape of internal state (<code>{highlightedIndex: number, inputValue: string, isOpen: boolean, selectedItem: any}</code>) but differ
+				slightly.</p>
+				<ul>
+					<li><code>changes</code>: These are the properties that actually have changed since the last
+						state change. This also has a <code>type</code> property which you can learn more about
+					in the <a href="#statechangetypes"><code>stateChangeTypes</code></a> section.</li>
+					<li><code>stateAndHelpers</code>: This is the exact same thing your <code>children</code> function is
+					called with (see <a href="#children-function">Children Function</a>)</li>
+				</ul>
+				<blockquote>
+					<p>Tip: This function will be called any time <em>any</em> state is changed. The best
+						way to determine whether any particular state was changed, you can use
+					<code>changes.hasOwnProperty(&#39;propName&#39;)</code>.</p>
+				</blockquote>
+				<blockquote>
+					<p>NOTE: This is only called when state actually changes. You should not attempt
+						to use this to handle events. If you wish to handle events, put your event
+						handlers directly on the elements (make sure to use the prop getters though!
+						For example: <code>&lt;input onBlur={handleBlur} /&gt;</code> should be
+					<code>&lt;input {...getInputProps({onBlur: handleBlur})} /&gt;</code>).</p>
+				</blockquote>
+				<h3 id="oninputvaluechange">onInputValueChange</h3>
+				<blockquote>
+					<p><code>function(inputValue: string, stateAndHelpers: object)</code> | optional, no useful
+					default</p>
+				</blockquote>
+				<p>Called whenever the input value changes. Useful to use instead or in combination
+					of <code>onStateChange</code> when <code>inputValue</code> is a controlled prop to
+				<a href="https://github.com/recent-searches-js/recent-searches/issues/217">avoid issues with cursor positions</a>.</p>
+				<ul>
+					<li><code>inputValue</code>: The current value of the input</li>
+					<li><code>stateAndHelpers</code>: This is the same thing your <code>children</code> function is
+					called with (see <a href="#children-function">Children Function</a>)</li>
+				</ul>
+				<h3 id="itemcount">itemCount</h3>
+				<blockquote>
+					<p><code>number</code> | optional, defaults the number of times you call getItemProps</p>
+				</blockquote>
+				<p>This is useful if you&#39;re using some kind of virtual listing component for
+					&quot;windowing&quot; (like
+				<a href="https://github.com/bvaughn/react-virtualized"><code>react-virtualized</code></a>).</p>
+				<h3 id="highlightedindex">highlightedIndex</h3>
+				<blockquote>
+					<p><code>number</code> | <strong>control prop</strong> (read more about this in
+					<a href="#control-props">the Control Props section</a>)</p>
+				</blockquote>
+				<p>The index that should be highlighted</p>
+				<h3 id="inputvalue">inputValue</h3>
+				<blockquote>
+					<p><code>string</code> | <strong>control prop</strong> (read more about this in
+					<a href="#control-props">the Control Props section</a>)</p>
+				</blockquote>
+				<p>The value the input should have</p>
+				<h3 id="isopen">isOpen</h3>
+				<blockquote>
+					<p><code>boolean</code> | <strong>control prop</strong> (read more about this in
+					<a href="#control-props">the Control Props section</a>)</p>
+				</blockquote>
+				<p>Whether the menu should be considered open or closed. Some aspects of the
+					recent-searches component respond differently based on this value (for example, if
+					<code>isOpen</code> is true when the user hits &quot;Enter&quot; on the input field, then the item at
+				the <code>highlightedIndex</code> item is selected).</p>
+				<h3 id="selecteditem">selectedItem</h3>
+				<blockquote>
+					<p><code>any</code>/<code>Array(any)</code> | <strong>control prop</strong> (read more about this in
+					<a href="#control-props">the Control Props section</a>)</p>
+				</blockquote>
+				<p>The currently selected item.</p>
+				<h3 id="id">id</h3>
+				<blockquote>
+					<p><code>string</code> | defaults to a generated ID</p>
+				</blockquote>
+				<p>You should not normally need to set this prop. It&#39;s only useful if you&#39;re server
+					rendering items (which each have an <code>id</code> prop generated based on the <code>recent-searches</code>
+				<code>id</code>). For more information see the <code>FAQ</code> below.</p>
+				<h3 id="inputid">inputId</h3>
+				<blockquote>
+					<p><code>string</code> | defaults to a generated ID</p>
+				</blockquote>
+				<p>Used for <code>aria</code> attributes and the <code>id</code> prop of the element (<code>input</code>) you use
+				<a href="#getinputprops"><code>getInputProps</code></a> with.</p>
+				<h3 id="labelid">labelId</h3>
+				<blockquote>
+					<p><code>string</code> | defaults to a generated ID</p>
+				</blockquote>
+				<p>Used for <code>aria</code> attributes and the <code>id</code> prop of the element (<code>label</code>) you use
+				<a href="#getlabelprops"><code>getLabelProps</code></a> with.</p>
+				<h3 id="menuid">menuId</h3>
+				<blockquote>
+					<p><code>string</code> | defaults to a generated ID</p>
+				</blockquote>
+				<p>Used for <code>aria</code> attributes and the <code>id</code> prop of the element (<code>ul</code>) you use
+				<a href="#getmenuprops"><code>getMenuProps</code></a> with.</p>
+				<h3 id="getitemid">getItemId</h3>
+				<blockquote>
+					<p><code>function(index)</code> | defaults to a function that generates an ID based on the index</p>
+				</blockquote>
+				<p>Used for <code>aria</code> attributes and the <code>id</code> prop of the element (<code>li</code>) you use
+				<a href="#getinputprops"><code>getInputProps</code></a> with.</p>
+				<h3 id="environment">environment</h3>
+				<blockquote>
+					<p><code>window</code> | defaults to <code>window</code></p>
+				</blockquote>
+				<p>This prop is only useful if you&#39;re rendering recent-searches within a different <code>window</code> context from where your JavaScript is running; for example, an iframe or a shadow-root. If the given context is lacking <code>document</code> and/or <code>add|removeEventListener</code> on its prototype (as is the case for a shadow-root) then you will need to pass in a custom object that is able to provide <a href="https://gist.github.com/Rendez/1dd55882e9b850dd3990feefc9d6e177">access to these properties</a> for recent-searches.</p>
+				<h3 id="onouterclick">onOuterClick</h3>
+				<blockquote>
+					<p><code>function(stateAndHelpers: object)</code> | optional</p>
+				</blockquote>
+				<p>A helper callback to help control internal state of recent-searches like <code>isOpen</code> as
+					mentioned in <a href="https://github.com/recent-searches-js/recent-searches/issues/206">this issue</a>. The
+					same behavior can be achieved using <code>onStateChange</code>, but this prop is provided
+					as a helper because it&#39;s a fairly common use-case if you&#39;re controlling the
+				<code>isOpen</code> state:</p>
+				<pre><code class="language-jsx"><span class="hljs-keyword">const</span> ui = (
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">recent-searches</span>
+    <span class="hljs-attr">isOpen</span>=<span class="hljs-string">{this.state.menuIsOpen}</span>
+    <span class="hljs-attr">onOuterClick</span>=<span class="hljs-string">{()</span> =&gt;</span> this.setState({menuIsOpen: false})}
+  &gt;
+    {/* your callback */}
+  <span class="hljs-tag">&lt;/<span class="hljs-name">recent-searches</span>&gt;</span>
+)</span></code></pre>
+				<p>This callback will only be called if <code>isOpen</code> is <code>true</code>.</p>
+				<h3 id="scrollintoview">scrollIntoView</h3>
+				<blockquote>
+					<p><code>function(node: HTMLElement, menuNode: HTMLElement)</code> | defaults to internal
+					implementation</p>
+				</blockquote>
+				<p>This allows you to customize how the scrolling works when the highlighted index
+					changes. It receives the node to be scrolled to and the root node (the root
+					node you render in recent-searches). Internally we use
+					<a href="https://www.npmjs.com/package/compute-scroll-into-view"><code>compute-scroll-into-view</code></a>
+					so if you use that package then you wont be adding any additional bytes to your
+				bundle :)</p>
+				<h2 id="statechangetypes">stateChangeTypes</h2>
+				<p>There are a few props that expose changes to state
+					(<a href="#onstatechange"><code>onStateChange</code></a> and <a href="#statereducer"><code>stateReducer</code></a>).
+					For you to make the most of these APIs, it&#39;s important for you to understand
+					why state is being changed. To accomplish this, there&#39;s a <code>type</code> property on the
+					<code>changes</code> object you get. This <code>type</code> corresponds to a
+				<code>recent-searches.stateChangeTypes</code> property.</p>
+				<p>The list of all possible values this <code>type</code> property can take is defined in
+					<a href="https://github.com/recent-searches-js/recent-searches/blob/master/src/stateChangeTypes.js">this file</a>
+				and is as follows:</p>
+				<ul>
+					<li><code>recent-searches.stateChangeTypes.unknown</code></li>
+					<li><code>recent-searches.stateChangeTypes.mouseUp</code></li>
+					<li><code>recent-searches.stateChangeTypes.itemMouseEnter</code></li>
+					<li><code>recent-searches.stateChangeTypes.keyDownArrowUp</code></li>
+					<li><code>recent-searches.stateChangeTypes.keyDownArrowDown</code></li>
+					<li><code>recent-searches.stateChangeTypes.keyDownEscape</code></li>
+					<li><code>recent-searches.stateChangeTypes.keyDownEnter</code></li>
+					<li><code>recent-searches.stateChangeTypes.clickItem</code></li>
+					<li><code>recent-searches.stateChangeTypes.blurInput</code></li>
+					<li><code>recent-searches.stateChangeTypes.changeInput</code></li>
+					<li><code>recent-searches.stateChangeTypes.keyDownSpaceButton</code></li>
+					<li><code>recent-searches.stateChangeTypes.clickButton</code></li>
+					<li><code>recent-searches.stateChangeTypes.blurButton</code></li>
+					<li><code>recent-searches.stateChangeTypes.controlledPropUpdatedSelectedItem</code></li>
+					<li><code>recent-searches.stateChangeTypes.touchEnd</code></li>
+				</ul>
+				<p>See <a href="#statereducer"><code>stateReducer</code></a> for a concrete example on how to use the
+				<code>type</code> property.</p>
+				<h2 id="control-props">Control Props</h2>
+				<p>recent-searches manages its own state internally and calls your <code>onChange</code> and
+					<code>onStateChange</code> handlers with any relevant changes. The state that recent-searches
+					manages includes: <code>isOpen</code>, <code>selectedItem</code>, <code>inputValue</code>, and
+					<code>highlightedIndex</code>. Your Children function (read more below) can be used to
+				manipulate this state and can likely support many of your use cases.</p>
+				<p>However, if more control is needed, you can pass any of these pieces of state as
+					a prop (as indicated above) and that state becomes controlled. As soon as
+					<code>this.props[statePropKey] !== undefined</code>, internally, <code>recent-searches</code> will determine
+					its state based on your prop&#39;s value rather than its own internal state. You
+					will be required to keep the state up to date (this is where <code>onStateChange</code>
+					comes in really handy), but you can also control the state from anywhere, be
+				that state from other components, <code>redux</code>, <code>react-router</code>, or anywhere else.</p>
+				<blockquote>
+					<p>Note: This is very similar to how normal controlled components work elsewhere
+						in react (like <code>&lt;input /&gt;</code>). If you want to learn more about this concept, you
+						can learn about that from this the
+					<a href="#advanced-react-component-patterns-course">Advanced React Component Patterns course</a></p>
+				</blockquote>
+				<h2 id="children-function">Children Function</h2>
+				<p>This is where you render whatever you want to based on the state of <code>recent-searches</code>.
+				You use it like so:</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> ui = (
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">recent-searches</span>&gt;</span>
+    {recent-searches =&gt; (
+      // use recent-searches utilities and state here, like recent-searches.isOpen,
+      // recent-searches.getInputProps, etc.
+      <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{/* more jsx here */}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    )}
+  <span class="hljs-tag">&lt;/<span class="hljs-name">recent-searches</span>&gt;</span>
+)</span></code></pre>
+				<p>The properties of this <code>recent-searches</code> object can be split into three categories as
+				indicated below:</p>
+				<h3 id="prop-getters">prop getters</h3>
+				<blockquote>
+					<p>See
+					<a href="https://blog.kentcdodds.com/how-to-give-rendering-control-to-users-with-prop-getters-549eaef76acf">the blog post about prop getters</a></p>
+				</blockquote>
+				<blockquote>
+					<p>NOTE: These prop-getters provide important <code>aria-</code> attributes which are very
+						important to your component being accessible. It&#39;s recommended that you
+					utilize these functions and apply the props they give you to your components.</p>
+				</blockquote>
+				<p>These functions are used to apply props to the elements that you render. This
+					gives you maximum flexibility to render what, when, and wherever you like. You
+					call these on the element in question (for example: <code>&lt;input {...getInputProps()}</code>)). It&#39;s advisable to pass all your props to that function
+					rather than applying them on the element yourself to avoid your props being
+					overridden (or overriding the props returned). For example:
+				<code>getInputProps({onKeyUp(event) {console.log(event)}})</code>.</p>
+				<!-- This table was generated via http://www.tablesgenerator.com/markdown_tables -->
+				<table>
+					<thead>
+						<tr>
+							<th>property</th>
+							<th>type</th>
+							<th>description</th>
+						</tr>
+					</thead>
+					<tbody><tr>
+							<td><code>getToggleButtonProps</code></td>
+							<td><code>function({})</code></td>
+							<td>returns the props you should apply to any menu toggle button element you render.</td>
+						</tr>
+						<tr>
+							<td><code>getInputProps</code></td>
+							<td><code>function({})</code></td>
+							<td>returns the props you should apply to the <code>input</code> element that you render.</td>
+						</tr>
+						<tr>
+							<td><code>getItemProps</code></td>
+							<td><code>function({})</code></td>
+							<td>returns the props you should apply to any menu item elements you render.</td>
+						</tr>
+						<tr>
+							<td><code>getLabelProps</code></td>
+							<td><code>function({})</code></td>
+							<td>returns the props you should apply to the <code>label</code> element that you render.</td>
+						</tr>
+						<tr>
+							<td><code>getMenuProps</code></td>
+							<td><code>function({},{})</code></td>
+							<td>returns the props you should apply to the <code>ul</code> element (or root of your menu) that you render.</td>
+						</tr>
+						<tr>
+							<td><code>getRootProps</code></td>
+							<td><code>function({},{})</code></td>
+							<td>returns the props you should apply to the root element that you render. It can be optional.</td>
+						</tr>
+				</tbody></table>
+				<h4 id="getrootprops"><code>getRootProps</code></h4>
+				<details>
+					<summary>
+						If you cannot render a div as the root element, then read this
+					</summary>
+					<p>Most of the time, you can just render a <code>div</code> yourself and <code>recent-searches</code> will
+						apply the props it needs to do its job (and you don&#39;t need to call this
+						function). However, if you&#39;re rendering a composite component (custom component)
+						as the root element, then you&#39;ll need to call <code>getRootProps</code> and apply that to
+					your root element (recent-searches will throw an error otherwise).</p>
+					<p>There are no required properties for this method.</p>
+					<p>Optional properties:</p>
+					<ul>
+						<li><code>refKey</code>: if you&#39;re rendering a composite component, that component will need
+							to accept a prop which it forwards to the root DOM element. Commonly, folks
+							call this <code>innerRef</code>. So you&#39;d call: <code>getRootProps({refKey: &#39;innerRef&#39;})</code> and
+						your composite component would forward like: <code>&lt;div ref={props.innerRef} /&gt;</code></li>
+					</ul>
+					<p>If you&#39;re rendering a composite component, <code>recent-searches</code> checks that
+						<code>getRootProps</code> is called and that <code>refKey</code> is a prop of the returned composite
+						component. This is done to catch common causes of errors but, in some cases, the
+						check could fail even if the ref is correctly forwarded to the root DOM
+						component. In these cases, you can provide the object <code>{suppressRefError : true}</code> as the second argument to <code>getRootProps</code> to completely bypass the check.\
+						<strong>Please use it with extreme care and only if you are absolutely sure that the ref
+						is correctly forwarded otherwise <code>recent-searches</code> will unexpectedly fail.</strong>\
+					See <a href="https://github.com/recent-searches-js/recent-searches/issues/235">#235</a> for the discussion that lead to this.</p>
+				</details>
+				<h4 id="getinputprops"><code>getInputProps</code></h4>
+				<p>This method should be applied to the <code>input</code> you render. It is recommended that
+					you pass all props as an object to this method which will compose together any
+					of the event handlers you need to apply to the <code>input</code> while preserving the ones
+				that <code>recent-searches</code> needs to apply to make the <code>input</code> behave.</p>
+				<p>There are no required properties for this method.</p>
+				<p>Optional properties:</p>
+				<ul>
+					<li><code>disabled</code>: If this is set to true, then no event handlers will be returned
+						from <code>getInputProps</code> and a <code>disabled</code> prop will be returned (effectively
+					disabling the input).</li>
+				</ul>
+				<h4 id="getlabelprops"><code>getLabelProps</code></h4>
+				<p>This method should be applied to the <code>label</code> you render. It is useful for
+					ensuring that the <code>for</code> attribute on the <code>&lt;label&gt;</code> (<code>htmlFor</code> as a react prop)
+					is the same as the <code>id</code> that appears on the <code>input</code>. If no <code>htmlFor</code> is provided
+					(the normal case) then an ID will be generated and used for the <code>input</code> and the
+				<code>label</code> <code>for</code> attribute.</p>
+				<p>There are no required properties for this method.</p>
+				<blockquote>
+					<p>Note: For accessibility purposes, calling this method is highly recommended.</p>
+				</blockquote>
+				<h4 id="getmenuprops"><code>getMenuProps</code></h4>
+				<p>This method should be applied to the element which contains your list of items.
+					Typically, this will be a <code>&lt;div&gt;</code> or a <code>&lt;ul&gt;</code> that surrounds a <code>map</code> expression.
+				This handles the proper ARIA roles and attributes.</p>
+				<p>Optional properties:</p>
+				<ul>
+					<li><p><code>refKey</code>: if you&#39;re rendering a composite component, that component will need
+							to accept a prop which it forwards to the root DOM element. Commonly, folks
+							call this <code>innerRef</code>. So you&#39;d call: <code>getMenuProps({refKey: &#39;innerRef&#39;})</code> and
+							your composite component would forward like: <code>&lt;ul ref={props.innerRef} /&gt;</code>.
+							However, if you are just rendering a primitive component like <code>&lt;div&gt;</code>, there
+						is no need to specify this property.</p>
+						<p>Please keep in mind that menus, for accessiblity purposes, should always be
+							rendered, regardless of whether you hide it or not. Otherwise, <code>getMenuProps</code>
+						may throw error if you unmount and remount the menu.</p>
+					</li>
+					<li><p><code>aria-label</code>: By default the menu will add an <code>aria-labelledby</code> that refers
+							to the <code>&lt;label&gt;</code> rendered with <code>getLabelProps</code>. However, if you provide
+							<code>aria-label</code> to give a more specific label that describes the options
+							available, then <code>aria-labelledby</code> will not be provided and screen readers
+						can use your <code>aria-label</code> instead.</p>
+					</li>
+				</ul>
+				<p>In some cases, you might want to completely bypass the <code>refKey</code> check. Then you
+					can provide the object <code>{suppressRefError : true}</code> as the second argument to
+					<code>getMenuProps</code>.
+					<strong>Please use it with extreme care and only if you are absolutely sure that the ref
+				is correctly forwarded otherwise <code>recent-searches</code> will unexpectedly fail.</strong></p>
+				<pre><code class="language-jsx">&lt;ul {...getMenuProps()}&gt;
+  {!isOpen
+    ? <span class="hljs-literal">null</span>
+    : items.map(<span class="hljs-function">(<span class="hljs-params">item, index</span>) =&gt;</span> (
+        <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">li</span> {<span class="hljs-attr">...getItemProps</span>({<span class="hljs-attr">item</span>, <span class="hljs-attr">index</span>, <span class="hljs-attr">key:</span> <span class="hljs-attr">item.id</span>})}&gt;</span>{item.name}<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span>
+      ))}
+&lt;<span class="hljs-regexp">/ul&gt;</span></code></pre>
+				<blockquote>
+					<p>Note that for accessibility reasons it&#39;s best if you always render this
+					element whether or not recent-searches is in an <code>isOpen</code> state.</p>
+				</blockquote>
+				<h4 id="getitemprops"><code>getItemProps</code></h4>
+				<p>The props returned from calling this function should be applied to any menu
+				items you render.</p>
+				<p><strong>This is an impure function</strong>, so it should only be called when you will
+				actually be applying the props to an item.</p>
+				<details>
+					<summary>What do you mean by impure function?</summary>
+					<p>Basically just don&#39;t do this:</p>
+					<pre><code class="language-jsx">items.map(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> {
+  <span class="hljs-keyword">const</span> props = getItemProps({item}) <span class="hljs-comment">// we're calling it here</span>
+  <span class="hljs-keyword">if</span> (!shouldRenderItem(item)) {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span> <span class="hljs-comment">// but we're not using props, and recent-searches thinks we are...</span>
+  }
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> {<span class="hljs-attr">...props</span>} /&gt;</span>
+})</span></code></pre>
+					<p>Instead, you could do this:</p>
+					<pre><code class="language-jsx">items.filter(shouldRenderItem).map(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> &lt;div {...getItemProps({item})} /&gt;)</code></pre>
+				</details>
+				<p>Required properties:</p>
+				<ul>
+					<li><code>item</code>: this is the item data that will be selected when the user selects a
+					particular item.</li>
+				</ul>
+				<p>Optional properties:</p>
+				<ul>
+					<li><code>index</code>: This is how <code>recent-searches</code> keeps track of your item when updating the
+						<code>highlightedIndex</code> as the user keys around. By default, <code>recent-searches</code> will
+						assume the <code>index</code> is the order in which you&#39;re calling <code>getItemProps</code>. This
+						is often good enough, but if you find odd behavior, try setting this
+						explicitly. It&#39;s probably best to be explicit about <code>index</code> when using a
+					windowing library like <code>react-virtualized</code>.</li>
+					<li><code>disabled</code>: If this is set to <code>true</code>, then all of the recent-searches item event
+						handlers will be omitted. Items will not be highlighted when hovered,
+					and items will not be selected when clicked.</li>
+				</ul>
+				<h4 id="gettogglebuttonprops"><code>getToggleButtonProps</code></h4>
+				<p>Call this and apply the returned props to a <code>button</code>. It allows you to toggle
+					the <code>Menu</code> component. You can definitely build something like this yourself (all
+					of the available APIs are exposed to you), but this is nice because it will also
+				apply all of the proper ARIA attributes.</p>
+				<p>Optional properties:</p>
+				<ul>
+					<li><code>disabled</code>: If this is set to <code>true</code>, then all of the recent-searches button event
+					handlers will be omitted (it wont toggle the menu when clicked).</li>
+					<li><code>aria-label</code>: The <code>aria-label</code> prop is in English. You should probably override
+					this yourself so you can provide translations:</li>
+				</ul>
+				<pre><code class="language-jsx"><span class="hljs-keyword">const</span> myButton = (
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span>
+    {<span class="hljs-attr">...getToggleButtonProps</span>({
+      '<span class="hljs-attr">aria-label</span>'<span class="hljs-attr">:</span> <span class="hljs-attr">translateWithId</span>(<span class="hljs-attr">isOpen</span> ? '<span class="hljs-attr">close.menu</span>' <span class="hljs-attr">:</span> '<span class="hljs-attr">open.menu</span>'),
+    })}
+  /&gt;</span>
+)</span></code></pre>
+				<h3 id="actions">actions</h3>
+				<p>These are functions you can call to change the state of the recent-searches component.</p>
+				<!-- This table was generated via http://www.tablesgenerator.com/markdown_tables -->
+				<table>
+					<thead>
+						<tr>
+							<th>property</th>
+							<th>type</th>
+							<th>description</th>
+						</tr>
+					</thead>
+					<tbody><tr>
+							<td><code>clearSelection</code></td>
+							<td><code>function(cb: Function)</code></td>
+							<td>clears the selection</td>
+						</tr>
+						<tr>
+							<td><code>clearItems</code></td>
+							<td><code>function()</code></td>
+							<td>Clears recent-searches&#39;s record of all the items. Only really useful if you render your items asynchronously within recent-searches. See <a href="https://github.com/recent-searches-js/recent-searches/issues/186">#186</a></td>
+						</tr>
+						<tr>
+							<td><code>closeMenu</code></td>
+							<td><code>function(cb: Function)</code></td>
+							<td>closes the menu</td>
+						</tr>
+						<tr>
+							<td><code>openMenu</code></td>
+							<td><code>function(cb: Function)</code></td>
+							<td>opens the menu</td>
+						</tr>
+						<tr>
+							<td><code>selectHighlightedItem</code></td>
+							<td><code>function(otherStateToSet: object, cb: Function)</code></td>
+							<td>selects the item that is currently highlighted</td>
+						</tr>
+						<tr>
+							<td><code>selectItem</code></td>
+							<td><code>function(item: any, otherStateToSet: object, cb: Function)</code></td>
+							<td>selects the given item</td>
+						</tr>
+						<tr>
+							<td><code>selectItemAtIndex</code></td>
+							<td><code>function(index: number, otherStateToSet: object, cb: Function)</code></td>
+							<td>selects the item at the given index</td>
+						</tr>
+						<tr>
+							<td><code>setHighlightedIndex</code></td>
+							<td><code>function(index: number, otherStateToSet: object, cb: Function)</code></td>
+							<td>call to set a new highlighted index</td>
+						</tr>
+						<tr>
+							<td><code>toggleMenu</code></td>
+							<td><code>function(otherStateToSet: object, cb: Function)</code></td>
+							<td>toggle the menu open state</td>
+						</tr>
+						<tr>
+							<td><code>reset</code></td>
+							<td><code>function(otherStateToSet: object, cb: Function)</code></td>
+							<td>this resets recent-searches&#39;s state to a reasonable default</td>
+						</tr>
+						<tr>
+							<td><code>setItemCount</code></td>
+							<td><code>function(count: number)</code></td>
+							<td>this sets the <code>itemCount</code>. Handy in situations where you&#39;re using windowing and the items are loaded asynchronously from within recent-searches (so you can&#39;t use the <code>itemCount</code> prop.</td>
+						</tr>
+						<tr>
+							<td><code>unsetItemCount</code></td>
+							<td><code>function()</code></td>
+							<td>this unsets the <code>itemCount</code> which means the item count will be calculated instead by the <code>itemCount</code> prop or based on how many times you call <code>getItemProps</code>.</td>
+						</tr>
+						<tr>
+							<td><code>setState</code></td>
+							<td><code>function(stateToSet: object, cb: Function)</code></td>
+							<td>This is a general <code>setState</code> function. It uses recent-searches&#39;s <code>internalSetState</code> function which works with control props and calls your <code>onSelect</code>, <code>onChange</code>, etc. (Note, you can specify a <code>type</code> which you can reference in some other APIs like the <code>stateReducer</code>).</td>
+						</tr>
+				</tbody></table>
+				<blockquote>
+					<p><code>otherStateToSet</code> refers to an object to set other internal state. It is
+					recommended to avoid abusing this, but is available if you need it.</p>
+				</blockquote>
+				<h3 id="state">state</h3>
+				<p>These are values that represent the current state of the recent-searches component.</p>
+				<!-- This table was generated via http://www.tablesgenerator.com/markdown_tables -->
+				<table>
+					<thead>
+						<tr>
+							<th>property</th>
+							<th>type</th>
+							<th>description</th>
+						</tr>
+					</thead>
+					<tbody><tr>
+							<td><code>highlightedIndex</code></td>
+							<td><code>number</code> / <code>null</code></td>
+							<td>the currently highlighted item</td>
+						</tr>
+						<tr>
+							<td><code>inputValue</code></td>
+							<td><code>string</code> / <code>null</code></td>
+							<td>the current value of the <code>getInputProps</code> input</td>
+						</tr>
+						<tr>
+							<td><code>isOpen</code></td>
+							<td><code>boolean</code></td>
+							<td>the menu open state</td>
+						</tr>
+						<tr>
+							<td><code>selectedItem</code></td>
+							<td><code>any</code></td>
+							<td>the currently selected item input</td>
+						</tr>
+				</tbody></table>
+				<h3 id="props">props</h3>
+				<p>As a convenience, the <code>id</code> and <code>itemToString</code> props which you pass to
+				<code>&lt;recent-searches /&gt;</code> are available here as well.</p>
+				<h2 id="event-handlers">Event Handlers</h2>
+				<p>recent-searches has a few events for which it provides implicit handlers. Several of
+					these handlers call <code>event.preventDefault()</code>. Their additional functionality is
+				described below.</p>
+				<h3 id="default-handlers">default handlers</h3>
+				<ul>
+					<li><p><code>ArrowDown</code>: if menu is closed, opens it and moves the highlighted index to
+							<code>defaultHighlightedIndex + 1</code>, if <code>defaultHighlightedIndex</code> is provided, or
+							to the top-most item, if not. If menu is open, it moves the highlighted index
+							down by 1. If the shift key is held when this event fires, the highlighted
+							index will jump down 5 indices instead of 1. NOTE: if the current highlighed
+						index is within the bottom 5 indices, the top-most index will be highlighted.)</p>
+					</li>
+					<li><p><code>ArrowUp</code>: if menu is closed, opens it and moves the highlighted index to
+							<code>defaultHighlightedIndex - 1</code>, if <code>defaultHighlightedIndex</code> is provided, or
+							to the bottom-most item, if not. If menu is open, moves the highlighted index
+							up by 1. If the shift key is held when this event fires, the highlighted
+							index will jump up 5 indices instead of 1. NOTE: if the current highlighed
+						index is within the top 5 indices, the bottom-most index will be highlighted.)</p>
+					</li>
+					<li><p><code>Home</code>: if menu is closed, it will not add any other behavior. If menu is open,
+						the top-most index will get highlighted.</p>
+					</li>
+					<li><p><code>End</code>: if menu is closed, it will not add any other behavior. If menu is open,
+						the bottom-most index will get highlighted.</p>
+					</li>
+					<li><p><code>Enter</code>: if the menu is open, selects the currently highlighted item. If the menu
+							is open, the usual &#39;Enter&#39; event is prevented by recent-searches&#39;s default implicit enter
+							handler; so, for example, a form submission event will not work as one might expect
+							(though if the menu is closed the form submission will work normally). See below
+						for customizing the handlers.</p>
+					</li>
+					<li><p><code>Escape</code>: will reset recent-searches&#39;s state. This means that <code>highlightedIndex</code> will be
+							set to the <code>defaultHighlightedIndex</code>, the <code>inputValue</code> will be set to the <code>itemToString</code>
+						value of the <code>selectedItem</code>, and the <code>isOpen</code> state will be set to the <code>defaultIsOpen</code>.</p>
+					</li>
+				</ul>
+				<h3 id="customizing-handlers">customizing handlers</h3>
+				<p>You can provide your own event handlers to recent-searches which will be called before the default handlers:</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> ui = (
+  &lt;recent-searches&gt;
+    {({getInputProps}) =&gt; (
+      &lt;input
+        {...getInputProps({
+          onKeyDown: event =&gt; {
+            // your handler code
+          },
+        })}
+      /&gt;
+    )}
+  &lt;/recent-searches&gt;
+)</code></pre>
+				<p>If you would like to prevent the default handler behavior in some cases, you can set the event&#39;s <code>preventrecent-searchesDefault</code> property to <code>true</code>:</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> ui = (
+  &lt;recent-searches&gt;
+    {({getInputProps}) =&gt; (
+      &lt;input
+        {...getInputProps({
+          onKeyDown: event =&gt; {
+            if (event.key === 'Enter') {
+              // Prevent recent-searches's default 'Enter' behavior.
+              event.nativeEvent.preventrecent-searchesDefault = true
+
+              // your handler code
+            }
+          },
+        })}
+      /&gt;
+    )}
+  &lt;/recent-searches&gt;
+)</code></pre>
+				<p>If you would like to completely override recent-searches&#39;s behavior for a handler, in favor of your own, you can bypass prop getters:</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> ui = (
+  &lt;recent-searches&gt;
+    {({getInputProps}) =&gt; (
+      &lt;input
+        {...getInputProps()}
+        onKeyDown={event =&gt; {
+          // your handler code
+        }}
+      /&gt;
+    )}
+  &lt;/recent-searches&gt;
+)</code></pre>
+				<h2 id="utilities">Utilities</h2>
+				<h3 id="resetidcounter">resetIdCounter</h3>
+				<p>Allows reseting the internal id counter which is used to generate unique ids for recent-searches component.</p>
+				<p>You should never need to use this in the browser. Only if you are running an universal React app that is rendered on the server you should call <a href="#resetidcounter">resetIdCounter</a> before every render so that the ids that get generated on the server match the ids generated in the browser.</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> {resetIdCounter} <span class="hljs-keyword">from</span> <span class="hljs-string">'recent-searches'</span>;
+
+resetIdCounter()
+ReactDOMServer.renderToString(...);</code></pre>
+				<h2 id="react-native">React Native</h2>
+				<p>Since recent-searches renders it&#39;s UI using render props, recent-searches supports rendering on React Native with ease. Use components like <code>&lt;View&gt;</code>, <code>&lt;Text&gt;</code>, <code>&lt;TouchableOpacity&gt;</code> and others inside of your render method to generate awesome autocomplete, dropdown, or selection components.</p>
+				<h3 id="gotchas">Gotchas</h3>
+				<ul>
+					<li>Your root view will need to either pass a ref to <code>getRootProps</code> or call <code>getRootProps</code> with <code>{ suppressRefError: true }</code>. This ref is used to catch a common set of errors around composite components. <a href="#getrootprops">Learn more in <code>getRootProps</code></a>.</li>
+					<li>When using a <code>&lt;FlatList&gt;</code> or <code>&lt;ScrollView&gt;</code>, be sure to supply the <a href="https://facebook.github.io/react-native/docs/scrollview.html#keyboardshouldpersisttaps"><code>keyboardShouldPersistTaps</code></a> prop to ensure that your text input stays focus, while allowing for taps on the touchables rendered for your items.</li>
+				</ul>
+				<h2 id="advanced-react-component-patterns-course">Advanced React Component Patterns course</h2>
+				<p><a href="https://twitter.com/kentcdodds">Kent C. Dodds</a> has created learning material
+					based on the patterns implemented in this component. You can find it on various
+				platforms:</p>
+				<ol>
+					<li><a href="https://egghead.io/courses/advanced-react-component-patterns">egghead.io</a></li>
+					<li><a href="https://frontendmasters.com/courses/advanced-react-patterns/">Frontend Masters</a></li>
+					<li>YouTube (for free!): <a href="https://www.youtube.com/watch?v=SuzutbwjUp8&amp;list=PLV5CVI1eNcJgNqzNwcs4UKrlJdhfDjshf">Part 1</a> and <a href="https://www.youtube.com/watch?v=ubXtOROjILU&amp;list=PLV5CVI1eNcJgNqzNwcs4UKrlJdhfDjshf">Part 2</a></li>
+				</ol>
+				<h2 id="examples">Examples</h2>
+				<blockquote>
+					<p>🚨 We&#39;re in the process of moving all examples to the
+						<a href="https://github.com/kentcdodds/recent-searches-examples">recent-searches-examples</a> repo
+						(which you can open, interact with, and contribute back to live on
+					<a href="https://codesandbox.io/s/github/kentcdodds/recent-searches-examples">codesandbox</a>)</p>
+				</blockquote>
+				<p><strong>Ordered Examples:</strong></p>
+				<p>If you&#39;re just learning recent-searches, review these in order:</p>
+				<ol>
+					<li><a href="https://codesandbox.io/s/github/kentcdodds/recent-searches-examples/tree/master/?module=%2Fsrc%2Fordered-examples%2F01-basic-autocomplete.js&amp;moduleview=1">basic autocomplete</a> - very bare bones, not styled at all. Good place to start.</li>
+					<li><a href="https://codesandbox.io/s/github/kentcdodds/recent-searches-examples/tree/master/?module=%2Fsrc%2Fordered-examples%2F02-complete-autocomplete.js&amp;moduleview=1">styled autocomplete</a> - more complete autocomplete solution using emotion for styling and match-sorter for filtering the items.</li>
+					<li><a href="https://codesandbox.io/s/github/kentcdodds/recent-searches-examples/tree/master/?module=%2Fsrc%2Fordered-examples%2F03-typeahead.js&amp;moduleview=1">typeahead</a> - Shows how to control the <code>selectedItem</code> so the selected item can be one of your items or whatever the user types.</li>
+					<li><a href="https://codesandbox.io/s/github/kentcdodds/recent-searches-examples/tree/master/?module=%2Fsrc%2Fordered-examples%2F04-multi-select.js&amp;moduleview=1">multi-select</a> - Shows how to create a Multirecent-searches component that allows for an array of selectedItems for multiple selection using a state reducer</li>
+				</ol>
+				<p><strong>Other Examples:</strong></p>
+				<p>Check out these examples of more advanced use/edge cases:</p>
+				<ul>
+					<li><a href="https://codesandbox.io/s/github/kentcdodds/recent-searches-examples/tree/master/?module=%2Fsrc%2Fother-examples%2Fdropdown-select-by-key%2FCustomDropdown%2Findex.js">dropdown with select by key</a> - An example of using the render prop pattern to utilize a reusable component to provide the recent-searches dropdown component with the functionality of being able to highlight a selection item that starts with the key pressed.</li>
+					<li><a href="https://codesandbox.io/s/github/kentcdodds/recent-searches-examples/tree/master/?module=%2Fsrc%2Fother-examples%2Fusing-actions.js&amp;moduleview=1">using actions</a> - An example of using one of recent-searches&#39;s actions as an event handler.</li>
+					<li><a href="https://codesandbox.io/s/github/kentcdodds/recent-searches-examples/tree/master/?module=%2Fsrc%2Fother-examples%2Fgmail%2Findex.js&amp;moduleview=1">gmail&#39;s composition recipients field</a> - An example of a highly complex autocomplete component featuring asynchronously loading items, multiple selection, and windowing (with react-virtualized)</li>
+					<li><a href="https://codesandbox.io/s/github/kentcdodds/recent-searches-examples/tree/master/?module=%2Fsrc%2Fother-examples%2Fhoc%2Findex.js&amp;moduleview=1">recent-searches HOC and Compound Components</a> - An example of how to implementat compound components with <code>React.createContext</code> and a recent-searches higher order component. This is generally not recommended because the render prop API exported by recent-searches is generally good enough for everyone, but there&#39;s nothing technically wrong with doing something like this.</li>
+				</ul>
+				<p><strong>Old Examples exist on <a href="https://codesandbox.io/search?refinementList%5Btags%5D%5B0%5D=recent-searches%3Aexample&amp;page=1">codesandbox.io</a>:</strong></p>
+				<p><em>🚨 This is a great contribution opportunity!</em> These are examples that have not yet been migrated to
+					<a href="https://codesandbox.io/s/github/kentcdodds/recent-searches-examples">recent-searches-examples</a>.
+					You&#39;re more than welcome to make PRs to the examples repository to move these examples over there.
+				<a href="https://www.youtube.com/watch?v=3PAQbhdkTtI&amp;index=2&amp;t=21s&amp;list=PLV5CVI1eNcJgCrPH_e6d57KRUTiDZgs0u">Watch this to learn how to contribute completely in the browser</a></p>
+				<ul>
+					<li><a href="https://codesandbox.io/s/m5zrvqj85p">Integration with Apollo</a></li>
+					<li><a href="https://codesandbox.io/s/3ywmnyr0zq">Integration with Redux</a></li>
+					<li><a href="https://codesandbox.io/s/kvn0lpp83">Integration with <code>react-instantsearch</code></a>
+					from Algolia</li>
+					<li><a href="https://codesandbox.io/s/QMGq4kAY">Material-UI (1.0.0-beta.4) Combobox Using recent-searches</a></li>
+					<li><a href="https://codesandbox.io/s/7k3674z09q">Material-UI (1.0.0-beta.33) Multiple select with autocomplete</a></li>
+					<li><a href="https://codesandbox.io/s/jRLKrxwgl">Integration with <code>GenieJS</code></a>
+					(<a href="https://github.com/kentcdodds/genie">learn more about <code>genie</code> here</a>)</li>
+					<li><a href="https://codesandbox.io/s/zKE37vorr">Handling and displaying errors</a></li>
+					<li><a href="https://codesandbox.io/s/ww9lwloy8w">Integration with React Router</a></li>
+					<li><a href="https://codesandbox.io/s/v670kq95l">Windowing with <code>react-tiny-virtual-list</code></a></li>
+					<li><a href="https://codesandbox.io/s/zx1kj58npl">Section/option group example</a></li>
+					<li><a href="https://codesandbox.io/s/pyq3v4o3j">Integration with <code>fuzzaldrin-plus</code> (Fuzzy matching)</a></li>
+					<li><a href="https://codesandbox.io/s/53y8jvpj0k">Dropdown/select implementation with Bootstrap</a></li>
+					<li><a href="https://codesandbox.io/s/o4yp9vmm8z">Multiple editable tag selection</a></li>
+					<li><a href="https://codesandbox.io/s/017n1jqo00">recent-searches implemented as compound components and a Higher Order Component</a>
+						(exposes a <code>withrecent-searches</code> higher order component which you can use to get at
+					the state, actions, prop getters in a rendered recent-searches tree).</li>
+					<li><a href="https://codesandbox.io/s/M89KQOBRB">recent-searches Spectre.css example</a></li>
+					<li><a href="https://codesandbox.io/s/k594964z13">Integration with <code>redux-form</code></a></li>
+					<li><a href="https://codesandbox.io/s/qzm43nn2mj">Integration with <code>react-final-form</code></a></li>
+					<li><a href="https://codesandbox.io/s/mywzk3133p">Provider Pattern</a> - how to avoid prop-drilling if you like to break up your render method into more components</li>
+					<li><a href="https://snack.expo.io/SkE0LxXqM">React Native example</a></li>
+					<li><a href="https://github.com/infiniteluke/bassdrop">React VR example</a></li>
+					<li><a href="https://codesandbox.io/s/5z711pmr3l">Multiple checkbox selection</a></li>
+				</ul>
+				<h2 id="faq">FAQ</h2>
+				<details>
+					<summary>
+						How do I avoid the checksum error when server rendering (SSR)?
+					</summary>
+					<p>The checksum error you&#39;re seeing is most likely due to the automatically
+						generated <code>id</code> and/or <code>htmlFor</code> prop you get from <code>getInputProps</code> and
+						<code>getLabelProps</code> (respectively). It could also be from the automatically
+						generated <code>id</code> prop you get from <code>getItemProps</code> (though this is not likely as
+						you&#39;re probably not rendering any items when rendering a recent-searches component on
+					the server).</p>
+					<p>To avoid these problems, simply call <a href="#resetidcounter">resetIdCounter</a> before
+					<code>ReactDOM.renderToString</code>.</p>
+					<p>Alternatively you could provide your own ids via the id props where you render
+					<code>&lt;recent-searches /&gt;</code>:</p>
+					<pre><code class="language-javascript"><span class="hljs-keyword">const</span> ui = (
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">recent-searches</span>
+    <span class="hljs-attr">id</span>=<span class="hljs-string">"autocomplete"</span>
+    <span class="hljs-attr">labelId</span>=<span class="hljs-string">"autocomplete-label"</span>
+    <span class="hljs-attr">inputId</span>=<span class="hljs-string">"autocomplete-input"</span>
+    <span class="hljs-attr">menuId</span>=<span class="hljs-string">"autocomplete-menu"</span>
+  &gt;</span>
+    {({getInputProps, getLabelProps}) =&gt; <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{/* your UI */}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>}
+  <span class="hljs-tag">&lt;/<span class="hljs-name">recent-searches</span>&gt;</span>
+)</span></code></pre>
+				</details>
+				<h2 id="inspiration">Inspiration</h2>
+				<p>I was heavily inspired by <a href="https://github.com/ryanflorence">Ryan Florence</a>. Watch his (free) lesson about
+					<a href="https://courses.reacttraining.com/courses/advanced-react/lectures/3060560">&quot;Compound Components&quot;</a>. Initially recent-searches was a
+					group of compound components using context to communicate. But then <a href="https://github.com/jaredly">Jared
+					Forsyth</a> suggested I expose functions (the prop getters) to get props to
+					apply to the elements rendered. That bit of inspiration made a big impact on the
+				flexibility and simplicity of this API.</p>
+				<p>I also took a few ideas from the code in
+					<a href="https://www.npmjs.com/package/react-autocomplete"><code>react-autocomplete</code></a> and <a href="https://jqueryui.com/autocomplete/">jQuery UI&#39;s
+				Autocomplete</a>.</p>
+				<p>You can watch me build the first iteration of <code>recent-searches</code> on YouTube:</p>
+				<ul>
+					<li><a href="https://www.youtube.com/watch?v=2kzD1IjDy5s&amp;list=PLV5CVI1eNcJh5CTgArGVwANebCrAh2OUE&amp;index=11">Part 1</a></li>
+					<li><a href="https://www.youtube.com/watch?v=w1Z7Jvj08_s&amp;list=PLV5CVI1eNcJh5CTgArGVwANebCrAh2OUE&amp;index=10">Part 2</a></li>
+				</ul>
+				<p>You&#39;ll find more recordings of me working on <code>recent-searches</code> on <a href="https://www.youtube.com/playlist?list=PLV5CVI1eNcJh5CTgArGVwANebCrAh2OUE">my livestream
+				YouTube playlist</a>.</p>
+				<h2 id="other-solutions">Other Solutions</h2>
+				<p>You can implement these other solutions using <code>recent-searches</code>, but if you&#39;d prefer
+				to use these out of the box solutions, then that&#39;s fine too:</p>
+				<ul>
+					<li><a href="https://github.com/JedWatson/react-select"><code>react-select</code></a></li>
+					<li><a href="https://github.com/reactjs/react-autocomplete"><code>react-autocomplete</code></a></li>
+				</ul>
+				<h2 id="bindings-for-reasonml">Bindings for ReasonML</h2>
+				<p>If you&#39;re developing some React in ReasonML, check out the <a href="https://github.com/reasonml-community/bs-recent-searches"><code>recent-searches</code> bindings</a> for that.</p>
+				<h2 id="contributors">Contributors</h2>
+				<p>Thanks goes to these people (<a href="https://github.com/kentcdodds/all-contributors#emoji-key">emoji key</a>):</p>
+				<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+				<!-- prettier-ignore -->
+				<table>
+					<thead>
+						<tr>
+							<th align="center"><a href="https://kentcdodds.com"><img src="https://avatars.githubusercontent.com/u/1500684?v=3" width="100px;" alt="Kent C. Dodds"/><br /><sub><b>Kent C. Dodds</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=kentcdodds" title="Code">💻</a> <a href="https://github.com/paypal/recent-searches/commits?author=kentcdodds" title="Documentation">📖</a> <a href="#infra-kentcdodds" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/paypal/recent-searches/commits?author=kentcdodds" title="Tests">⚠️</a> <a href="#review-kentcdodds" title="Reviewed Pull Requests">👀</a> <a href="#blog-kentcdodds" title="Blogposts">📝</a> <a href="https://github.com/paypal/recent-searches/issues?q=author%3Akentcdodds" title="Bug reports">🐛</a> <a href="#example-kentcdodds" title="Examples">💡</a> <a href="#ideas-kentcdodds" title="Ideas, Planning, &amp; Feedback">🤔</a> <a href="#talk-kentcdodds" title="Talks">📢</a></th>
+							<th align="center"><a href="http://twitter.com/ryanflorence"><img src="https://avatars0.githubusercontent.com/u/100200?v=4" width="100px;" alt="Ryan Florence"/><br /><sub><b>Ryan Florence</b></sub></a><br /><a href="#ideas-ryanflorence" title="Ideas, Planning, &amp; Feedback">🤔</a></th>
+							<th align="center"><a href="http://jaredforsyth.com"><img src="https://avatars3.githubusercontent.com/u/112170?v=4" width="100px;" alt="Jared Forsyth"/><br /><sub><b>Jared Forsyth</b></sub></a><br /><a href="#ideas-jaredly" title="Ideas, Planning, &amp; Feedback">🤔</a> <a href="https://github.com/paypal/recent-searches/commits?author=jaredly" title="Documentation">📖</a></th>
+							<th align="center"><a href="https://github.com/jtmthf"><img src="https://avatars1.githubusercontent.com/u/8162598?v=4" width="100px;" alt="Jack Moore"/><br /><sub><b>Jack Moore</b></sub></a><br /><a href="#example-jtmthf" title="Examples">💡</a></th>
+							<th align="center"><a href="http://travisrayarnold.com"><img src="https://avatars1.githubusercontent.com/u/2762082?v=4" width="100px;" alt="Travis Arnold"/><br /><sub><b>Travis Arnold</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=souporserious" title="Code">💻</a> <a href="https://github.com/paypal/recent-searches/commits?author=souporserious" title="Documentation">📖</a></th>
+							<th align="center"><a href="http://marcysutton.com"><img src="https://avatars0.githubusercontent.com/u/1045233?v=4" width="100px;" alt="Marcy Sutton"/><br /><sub><b>Marcy Sutton</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/issues?q=author%3Amarcysutton" title="Bug reports">🐛</a> <a href="#ideas-marcysutton" title="Ideas, Planning, &amp; Feedback">🤔</a></th>
+							<th align="center"><a href="http://www.jeremygayed.com"><img src="https://avatars2.githubusercontent.com/u/244704?v=4" width="100px;" alt="Jeremy Gayed"/><br /><sub><b>Jeremy Gayed</b></sub></a><br /><a href="#example-tizmagik" title="Examples">💡</a></th>
+						</tr>
+					</thead>
+					<tbody><tr>
+							<td align="center"><a href="https://haroen.me"><img src="https://avatars3.githubusercontent.com/u/6270048?v=4" width="100px;" alt="Haroen Viaene"/><br /><sub><b>Haroen Viaene</b></sub></a><br /><a href="#example-Haroenv" title="Examples">💡</a></td>
+							<td align="center"><a href="https://github.com/rezof"><img src="https://avatars2.githubusercontent.com/u/15073300?v=4" width="100px;" alt="monssef"/><br /><sub><b>monssef</b></sub></a><br /><a href="#example-rezof" title="Examples">💡</a></td>
+							<td align="center"><a href="https://fezvrasta.github.io"><img src="https://avatars2.githubusercontent.com/u/5382443?v=4" width="100px;" alt="Federico Zivolo"/><br /><sub><b>Federico Zivolo</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=FezVrasta" title="Documentation">📖</a></td>
+							<td align="center"><a href="https://divyendusingh.com"><img src="https://avatars3.githubusercontent.com/u/746482?v=4" width="100px;" alt="Divyendu Singh"/><br /><sub><b>Divyendu Singh</b></sub></a><br /><a href="#example-divyenduz" title="Examples">💡</a> <a href="https://github.com/paypal/recent-searches/commits?author=divyenduz" title="Code">💻</a> <a href="https://github.com/paypal/recent-searches/commits?author=divyenduz" title="Documentation">📖</a> <a href="https://github.com/paypal/recent-searches/commits?author=divyenduz" title="Tests">⚠️</a></td>
+							<td align="center"><a href="https://github.com/salmanmanekia"><img src="https://avatars1.githubusercontent.com/u/841955?v=4" width="100px;" alt="Muhammad Salman"/><br /><sub><b>Muhammad Salman</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=salmanmanekia" title="Code">💻</a></td>
+							<td align="center"><a href="https://twitter.com/psicotropidev"><img src="https://avatars3.githubusercontent.com/u/10820159?v=4" width="100px;" alt="João Alberto"/><br /><sub><b>João Alberto</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=psicotropicos" title="Code">💻</a></td>
+							<td align="center"><a href="https://github.com/bernard-lin"><img src="https://avatars0.githubusercontent.com/u/16327281?v=4" width="100px;" alt="Bernard Lin"/><br /><sub><b>Bernard Lin</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=bernard-lin" title="Code">💻</a> <a href="https://github.com/paypal/recent-searches/commits?author=bernard-lin" title="Documentation">📖</a></td>
+						</tr>
+						<tr>
+							<td align="center"><a href="https://geoffdavis.info"><img src="https://avatars1.githubusercontent.com/u/7330124?v=4" width="100px;" alt="Geoff Davis"/><br /><sub><b>Geoff Davis</b></sub></a><br /><a href="#example-geoffdavis92" title="Examples">💡</a></td>
+							<td align="center"><a href="https://github.com/reznord"><img src="https://avatars0.githubusercontent.com/u/3415488?v=4" width="100px;" alt="Anup"/><br /><sub><b>Anup</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=reznord" title="Documentation">📖</a></td>
+							<td align="center"><a href="http://ferdinandsalis.com"><img src="https://avatars0.githubusercontent.com/u/340520?v=4" width="100px;" alt="Ferdinand Salis"/><br /><sub><b>Ferdinand Salis</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/issues?q=author%3Aferdinandsalis" title="Bug reports">🐛</a> <a href="https://github.com/paypal/recent-searches/commits?author=ferdinandsalis" title="Code">💻</a></td>
+							<td align="center"><a href="https://github.com/tkh44"><img src="https://avatars2.githubusercontent.com/u/662750?v=4" width="100px;" alt="Kye Hohenberger"/><br /><sub><b>Kye Hohenberger</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/issues?q=author%3Atkh44" title="Bug reports">🐛</a></td>
+							<td align="center"><a href="https://github.com/jgoux"><img src="https://avatars0.githubusercontent.com/u/1443499?v=4" width="100px;" alt="Julien Goux"/><br /><sub><b>Julien Goux</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/issues?q=author%3Ajgoux" title="Bug reports">🐛</a> <a href="https://github.com/paypal/recent-searches/commits?author=jgoux" title="Code">💻</a> <a href="https://github.com/paypal/recent-searches/commits?author=jgoux" title="Tests">⚠️</a></td>
+							<td align="center"><a href="https://github.com/jseminck"><img src="https://avatars2.githubusercontent.com/u/9586897?v=4" width="100px;" alt="Joachim Seminck"/><br /><sub><b>Joachim Seminck</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=jseminck" title="Code">💻</a></td>
+							<td align="center"><a href="http://jesseharlin.net/"><img src="https://avatars3.githubusercontent.com/u/954596?v=4" width="100px;" alt="Jesse Harlin"/><br /><sub><b>Jesse Harlin</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/issues?q=author%3Athe-simian" title="Bug reports">🐛</a> <a href="#example-the-simian" title="Examples">💡</a></td>
+						</tr>
+						<tr>
+							<td align="center"><a href="https://github.com/pbomb"><img src="https://avatars0.githubusercontent.com/u/1402095?v=4" width="100px;" alt="Matt Parrish"/><br /><sub><b>Matt Parrish</b></sub></a><br /><a href="#tool-pbomb" title="Tools">🔧</a> <a href="#review-pbomb" title="Reviewed Pull Requests">👀</a></td>
+							<td align="center"><a href="http://thom.kr"><img src="https://avatars1.githubusercontent.com/u/11661846?v=4" width="100px;" alt="thom"/><br /><sub><b>thom</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=thomhos" title="Code">💻</a></td>
+							<td align="center"><a href="http://twitter.com/tranvu"><img src="https://avatars2.githubusercontent.com/u/1088312?v=4" width="100px;" alt="Vu Tran"/><br /><sub><b>Vu Tran</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=vutran" title="Code">💻</a></td>
+							<td align="center"><a href="https://github.com/codiemullins"><img src="https://avatars1.githubusercontent.com/u/74193?v=4" width="100px;" alt="Codie Mullins"/><br /><sub><b>Codie Mullins</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=codiemullins" title="Code">💻</a> <a href="#example-codiemullins" title="Examples">💡</a></td>
+							<td align="center"><a href="https://morajabi.me"><img src="https://avatars3.githubusercontent.com/u/12202757?v=4" width="100px;" alt="Mohammad Rajabifard"/><br /><sub><b>Mohammad Rajabifard</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=morajabi" title="Documentation">📖</a> <a href="#ideas-morajabi" title="Ideas, Planning, &amp; Feedback">🤔</a></td>
+							<td align="center"><a href="https://github.com/tansongyang"><img src="https://avatars3.githubusercontent.com/u/9488719?v=4" width="100px;" alt="Frank Tan"/><br /><sub><b>Frank Tan</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=tansongyang" title="Code">💻</a></td>
+							<td align="center"><a href="https://kierb.com"><img src="https://avatars3.githubusercontent.com/u/5093058?v=4" width="100px;" alt="Kier Borromeo"/><br /><sub><b>Kier Borromeo</b></sub></a><br /><a href="#example-srph" title="Examples">💡</a></td>
+						</tr>
+						<tr>
+							<td align="center"><a href="https://github.com/paul-veevers"><img src="https://avatars1.githubusercontent.com/u/8969456?v=4" width="100px;" alt="Paul Veevers"/><br /><sub><b>Paul Veevers</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=paul-veevers" title="Code">💻</a></td>
+							<td align="center"><a href="https://github.com/Ronolibert"><img src="https://avatars2.githubusercontent.com/u/13622298?v=4" width="100px;" alt="Ron Cruz"/><br /><sub><b>Ron Cruz</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=Ronolibert" title="Documentation">📖</a></td>
+							<td align="center"><a href="http://rickmcgavin.github.io"><img src="https://avatars1.githubusercontent.com/u/13605633?v=4" width="100px;" alt="Rick McGavin"/><br /><sub><b>Rick McGavin</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=rickMcGavin" title="Documentation">📖</a></td>
+							<td align="center"><a href="http://twitter.com/vejersele"><img src="https://avatars0.githubusercontent.com/u/869669?v=4" width="100px;" alt="Jelle Versele"/><br /><sub><b>Jelle Versele</b></sub></a><br /><a href="#example-vejersele" title="Examples">💡</a></td>
+							<td align="center"><a href="https://github.com/brentertz"><img src="https://avatars1.githubusercontent.com/u/202773?v=4" width="100px;" alt="Brent Ertz"/><br /><sub><b>Brent Ertz</b></sub></a><br /><a href="#ideas-brentertz" title="Ideas, Planning, &amp; Feedback">🤔</a></td>
+							<td align="center"><a href="https://github.com/Dajust"><img src="https://avatars3.githubusercontent.com/u/8015514?v=4" width="100px;" alt="Justice Mba "/><br /><sub><b>Justice Mba </b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=Dajust" title="Code">💻</a> <a href="https://github.com/paypal/recent-searches/commits?author=Dajust" title="Documentation">📖</a> <a href="#ideas-Dajust" title="Ideas, Planning, &amp; Feedback">🤔</a></td>
+							<td align="center"><a href="http://mfellis.com"><img src="https://avatars2.githubusercontent.com/u/3925281?v=4" width="100px;" alt="Mark Ellis"/><br /><sub><b>Mark Ellis</b></sub></a><br /><a href="#ideas-ellismarkf" title="Ideas, Planning, &amp; Feedback">🤔</a></td>
+						</tr>
+						<tr>
+							<td align="center"><a href="http://ronak.io/"><img src="https://avatars1.githubusercontent.com/u/3241922?v=4" width="100px;" alt="us͡an̸df͘rien͜ds͠"/><br /><sub><b>us͡an̸df͘rien͜ds͠</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/issues?q=author%3Ausandfriends" title="Bug reports">🐛</a> <a href="https://github.com/paypal/recent-searches/commits?author=usandfriends" title="Code">💻</a> <a href="https://github.com/paypal/recent-searches/commits?author=usandfriends" title="Tests">⚠️</a></td>
+							<td align="center"><a href="https://www.robin-drexler.com/"><img src="https://avatars0.githubusercontent.com/u/474248?v=4" width="100px;" alt="Robin Drexler"/><br /><sub><b>Robin Drexler</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/issues?q=author%3Arobin-drexler" title="Bug reports">🐛</a> <a href="https://github.com/paypal/recent-searches/commits?author=robin-drexler" title="Code">💻</a></td>
+							<td align="center"><a href="http://arturoromero.info/"><img src="https://avatars0.githubusercontent.com/u/7406639?v=4" width="100px;" alt="Arturo Romero"/><br /><sub><b>Arturo Romero</b></sub></a><br /><a href="#example-arturoromeroslc" title="Examples">💡</a></td>
+							<td align="center"><a href="http://algolab.eu/pirola"><img src="https://avatars1.githubusercontent.com/u/275483?v=4" width="100px;" alt="yp"/><br /><sub><b>yp</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/issues?q=author%3Ayp" title="Bug reports">🐛</a> <a href="https://github.com/paypal/recent-searches/commits?author=yp" title="Code">💻</a> <a href="https://github.com/paypal/recent-searches/commits?author=yp" title="Tests">⚠️</a></td>
+							<td align="center"><a href="http://www.warbyparker.com"><img src="https://avatars0.githubusercontent.com/u/3998604?v=4" width="100px;" alt="Dave Garwacke"/><br /><sub><b>Dave Garwacke</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=ifyoumakeit" title="Documentation">📖</a></td>
+							<td align="center"><a href="http://linkedin.com/in/drapegnik"><img src="https://avatars3.githubusercontent.com/u/11758660?v=4" width="100px;" alt="Ivan Pazhitnykh"/><br /><sub><b>Ivan Pazhitnykh</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=Drapegnik" title="Code">💻</a> <a href="https://github.com/paypal/recent-searches/commits?author=Drapegnik" title="Tests">⚠️</a></td>
+							<td align="center"><a href="https://github.com/Rendez"><img src="https://avatars0.githubusercontent.com/u/61776?v=4" width="100px;" alt="Luis Merino"/><br /><sub><b>Luis Merino</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=Rendez" title="Documentation">📖</a></td>
+						</tr>
+						<tr>
+							<td align="center"><a href="http://twitter.com/arahansen"><img src="https://avatars0.githubusercontent.com/u/8746094?v=4" width="100px;" alt="Andrew Hansen"/><br /><sub><b>Andrew Hansen</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=arahansen" title="Code">💻</a> <a href="https://github.com/paypal/recent-searches/commits?author=arahansen" title="Tests">⚠️</a> <a href="#ideas-arahansen" title="Ideas, Planning, &amp; Feedback">🤔</a></td>
+							<td align="center"><a href="http://www.johnwhiles.com"><img src="https://avatars3.githubusercontent.com/u/20307225?v=4" width="100px;" alt="John Whiles"/><br /><sub><b>John Whiles</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=Jwhiles" title="Code">💻</a></td>
+							<td align="center"><a href="https://github.com/wKovacs64"><img src="https://avatars1.githubusercontent.com/u/1288694?v=4" width="100px;" alt="Justin Hall"/><br /><sub><b>Justin Hall</b></sub></a><br /><a href="#infra-wKovacs64" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
+							<td align="center"><a href="https://twitter.com/pete_tnt"><img src="https://avatars2.githubusercontent.com/u/7641760?v=4" width="100px;" alt="Pete Nykänen"/><br /><sub><b>Pete Nykänen</b></sub></a><br /><a href="#review-petetnt" title="Reviewed Pull Requests">👀</a></td>
+							<td align="center"><a href="http://jaredpalmer.com"><img src="https://avatars2.githubusercontent.com/u/4060187?v=4" width="100px;" alt="Jared Palmer"/><br /><sub><b>Jared Palmer</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=jaredpalmer" title="Code">💻</a></td>
+							<td align="center"><a href="http://www.philipyoungg.com"><img src="https://avatars3.githubusercontent.com/u/11477718?v=4" width="100px;" alt="Philip Young"/><br /><sub><b>Philip Young</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=philipyoungg" title="Code">💻</a> <a href="https://github.com/paypal/recent-searches/commits?author=philipyoungg" title="Tests">⚠️</a> <a href="#ideas-philipyoungg" title="Ideas, Planning, &amp; Feedback">🤔</a></td>
+							<td align="center"><a href="https://alexandernanberg.com"><img src="https://avatars3.githubusercontent.com/u/8997319?v=4" width="100px;" alt="Alexander Nanberg"/><br /><sub><b>Alexander Nanberg</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=alexandernanberg" title="Documentation">📖</a> <a href="https://github.com/paypal/recent-searches/commits?author=alexandernanberg" title="Code">💻</a></td>
+						</tr>
+						<tr>
+							<td align="center"><a href="https://httpete.com"><img src="https://avatars2.githubusercontent.com/u/1556430?v=4" width="100px;" alt="Pete Redmond"/><br /><sub><b>Pete Redmond</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/issues?q=author%3Ahttpete-ire" title="Bug reports">🐛</a></td>
+							<td align="center"><a href="https://github.com/Zashy"><img src="https://avatars2.githubusercontent.com/u/1706342?v=4" width="100px;" alt="Nick Lavin"/><br /><sub><b>Nick Lavin</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/issues?q=author%3AZashy" title="Bug reports">🐛</a> <a href="https://github.com/paypal/recent-searches/commits?author=Zashy" title="Code">💻</a> <a href="https://github.com/paypal/recent-searches/commits?author=Zashy" title="Tests">⚠️</a></td>
+							<td align="center"><a href="http://jlongster.com"><img src="https://avatars2.githubusercontent.com/u/17031?v=4" width="100px;" alt="James Long"/><br /><sub><b>James Long</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/issues?q=author%3Ajlongster" title="Bug reports">🐛</a> <a href="https://github.com/paypal/recent-searches/commits?author=jlongster" title="Code">💻</a></td>
+							<td align="center"><a href="http://michaelball.co"><img src="https://avatars0.githubusercontent.com/u/1505907?v=4" width="100px;" alt="Michael Ball"/><br /><sub><b>Michael Ball</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/issues?q=author%3Acycomachead" title="Bug reports">🐛</a> <a href="https://github.com/paypal/recent-searches/commits?author=cycomachead" title="Code">💻</a> <a href="https://github.com/paypal/recent-searches/commits?author=cycomachead" title="Tests">⚠️</a></td>
+							<td align="center"><a href="https://github.com/Julienng"><img src="https://avatars0.githubusercontent.com/u/8990614?v=4" width="100px;" alt="CAVALEIRO Julien"/><br /><sub><b>CAVALEIRO Julien</b></sub></a><br /><a href="#example-Julienng" title="Examples">💡</a></td>
+							<td align="center"><a href="http://www.kimgronqvist.se"><img src="https://avatars1.githubusercontent.com/u/3421067?v=4" width="100px;" alt="Kim Grönqvist"/><br /><sub><b>Kim Grönqvist</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=kimgronqvist" title="Code">💻</a> <a href="https://github.com/paypal/recent-searches/commits?author=kimgronqvist" title="Tests">⚠️</a></td>
+							<td align="center"><a href="http://sijietian.com"><img src="https://avatars2.githubusercontent.com/u/3675602?v=4" width="100px;" alt="Sijie"/><br /><sub><b>Sijie</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/issues?q=author%3Atiansijie" title="Bug reports">🐛</a> <a href="https://github.com/paypal/recent-searches/commits?author=tiansijie" title="Code">💻</a></td>
+						</tr>
+						<tr>
+							<td align="center"><a href="http://dsds.io"><img src="https://avatars0.githubusercontent.com/u/410792?v=4" width="100px;" alt="Dony Sukardi"/><br /><sub><b>Dony Sukardi</b></sub></a><br /><a href="#example-donysukardi" title="Examples">💡</a> <a href="#question-donysukardi" title="Answering Questions">💬</a> <a href="https://github.com/paypal/recent-searches/commits?author=donysukardi" title="Code">💻</a> <a href="https://github.com/paypal/recent-searches/commits?author=donysukardi" title="Tests">⚠️</a></td>
+							<td align="center"><a href="https://dillonmulroy.com"><img src="https://avatars1.githubusercontent.com/u/2755722?v=4" width="100px;" alt="Dillon Mulroy"/><br /><sub><b>Dillon Mulroy</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=dmmulroy" title="Documentation">📖</a></td>
+							<td align="center"><a href="https://twitter.com/curtytate"><img src="https://avatars3.githubusercontent.com/u/12440573?v=4" width="100px;" alt="Curtis Tate Wilkinson"/><br /><sub><b>Curtis Tate Wilkinson</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=curtiswilkinson" title="Code">💻</a></td>
+							<td align="center"><a href="https://github.com/brikou"><img src="https://avatars3.githubusercontent.com/u/383212?v=4" width="100px;" alt="Brice BERNARD"/><br /><sub><b>Brice BERNARD</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/issues?q=author%3Abrikou" title="Bug reports">🐛</a> <a href="https://github.com/paypal/recent-searches/commits?author=brikou" title="Code">💻</a></td>
+							<td align="center"><a href="https://github.com/xutopia"><img src="https://avatars3.githubusercontent.com/u/14304503?v=4" width="100px;" alt="Tony Xu"/><br /><sub><b>Tony Xu</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=xutopia" title="Code">💻</a></td>
+							<td align="center"><a href="http://anthonyng.me"><img src="https://avatars1.githubusercontent.com/u/14035529?v=4" width="100px;" alt="Anthony Ng"/><br /><sub><b>Anthony Ng</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=newyork-anthonyng" title="Documentation">📖</a></td>
+							<td align="center"><a href="https://github.com/notruth"><img src="https://avatars2.githubusercontent.com/u/11996139?v=4" width="100px;" alt="S S"/><br /><sub><b>S S</b></sub></a><br /><a href="#question-notruth" title="Answering Questions">💬</a> <a href="https://github.com/paypal/recent-searches/commits?author=notruth" title="Code">💻</a> <a href="https://github.com/paypal/recent-searches/commits?author=notruth" title="Documentation">📖</a> <a href="#ideas-notruth" title="Ideas, Planning, &amp; Feedback">🤔</a> <a href="https://github.com/paypal/recent-searches/commits?author=notruth" title="Tests">⚠️</a></td>
+						</tr>
+						<tr>
+							<td align="center"><a href="http://austintackaberry.co"><img src="https://avatars0.githubusercontent.com/u/29493001?v=4" width="100px;" alt="Austin Tackaberry"/><br /><sub><b>Austin Tackaberry</b></sub></a><br /><a href="#question-austintackaberry" title="Answering Questions">💬</a> <a href="https://github.com/paypal/recent-searches/commits?author=austintackaberry" title="Code">💻</a> <a href="https://github.com/paypal/recent-searches/commits?author=austintackaberry" title="Documentation">📖</a> <a href="https://github.com/paypal/recent-searches/issues?q=author%3Aaustintackaberry" title="Bug reports">🐛</a> <a href="#example-austintackaberry" title="Examples">💡</a> <a href="#ideas-austintackaberry" title="Ideas, Planning, &amp; Feedback">🤔</a> <a href="#review-austintackaberry" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/paypal/recent-searches/commits?author=austintackaberry" title="Tests">⚠️</a></td>
+							<td align="center"><a href="https://github.com/jduthon"><img src="https://avatars3.githubusercontent.com/u/4168055?v=4" width="100px;" alt="Jean Duthon"/><br /><sub><b>Jean Duthon</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/issues?q=author%3Ajduthon" title="Bug reports">🐛</a> <a href="https://github.com/paypal/recent-searches/commits?author=jduthon" title="Code">💻</a></td>
+							<td align="center"><a href="http://antontelesh.github.io"><img src="https://avatars3.githubusercontent.com/u/3889580?v=4" width="100px;" alt="Anton Telesh"/><br /><sub><b>Anton Telesh</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/issues?q=author%3AAntontelesh" title="Bug reports">🐛</a> <a href="https://github.com/paypal/recent-searches/commits?author=Antontelesh" title="Code">💻</a></td>
+							<td align="center"><a href="https://github.com/ericedem"><img src="https://avatars3.githubusercontent.com/u/1060669?v=4" width="100px;" alt="Eric Edem"/><br /><sub><b>Eric Edem</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=ericedem" title="Code">💻</a> <a href="https://github.com/paypal/recent-searches/commits?author=ericedem" title="Documentation">📖</a> <a href="#ideas-ericedem" title="Ideas, Planning, &amp; Feedback">🤔</a> <a href="https://github.com/paypal/recent-searches/commits?author=ericedem" title="Tests">⚠️</a></td>
+							<td align="center"><a href="https://github.com/indiesquidge"><img src="https://avatars3.githubusercontent.com/u/3409645?v=4" width="100px;" alt="Austin Wood"/><br /><sub><b>Austin Wood</b></sub></a><br /><a href="#question-indiesquidge" title="Answering Questions">💬</a> <a href="https://github.com/paypal/recent-searches/commits?author=indiesquidge" title="Documentation">📖</a> <a href="#review-indiesquidge" title="Reviewed Pull Requests">👀</a></td>
+							<td align="center"><a href="https://github.com/mmmurray"><img src="https://avatars3.githubusercontent.com/u/14275790?v=4" width="100px;" alt="Mark Murray"/><br /><sub><b>Mark Murray</b></sub></a><br /><a href="#infra-mmmurray" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
+							<td align="center"><a href="https://github.com/gsimone"><img src="https://avatars0.githubusercontent.com/u/1862172?v=4" width="100px;" alt="Gianmarco"/><br /><sub><b>Gianmarco</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/issues?q=author%3Agsimone" title="Bug reports">🐛</a> <a href="https://github.com/paypal/recent-searches/commits?author=gsimone" title="Code">💻</a></td>
+						</tr>
+						<tr>
+							<td align="center"><a href="https://github.com/pastr"><img src="https://avatars2.githubusercontent.com/u/6838136?v=4" width="100px;" alt="Emmanuel Pastor"/><br /><sub><b>Emmanuel Pastor</b></sub></a><br /><a href="#example-pastr" title="Examples">💡</a></td>
+							<td align="center"><a href="https://github.com/dalehurwitz"><img src="https://avatars2.githubusercontent.com/u/10345034?v=4" width="100px;" alt="dalehurwitz"/><br /><sub><b>dalehurwitz</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=dalehurwitz" title="Code">💻</a></td>
+							<td align="center"><a href="https://github.com/blobor"><img src="https://avatars1.githubusercontent.com/u/4813007?v=4" width="100px;" alt="Bogdan Lobor"/><br /><sub><b>Bogdan Lobor</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/issues?q=author%3Ablobor" title="Bug reports">🐛</a> <a href="https://github.com/paypal/recent-searches/commits?author=blobor" title="Code">💻</a></td>
+							<td align="center"><a href="https://github.com/infiniteluke"><img src="https://avatars0.githubusercontent.com/u/1127238?v=4" width="100px;" alt="Luke Herrington"/><br /><sub><b>Luke Herrington</b></sub></a><br /><a href="#example-infiniteluke" title="Examples">💡</a></td>
+							<td align="center"><a href="https://github.com/drobannx"><img src="https://avatars2.githubusercontent.com/u/6361167?v=4" width="100px;" alt="Brandon Clemons"/><br /><sub><b>Brandon Clemons</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=drobannx" title="Code">💻</a></td>
+							<td align="center"><a href="https://github.com/aMollusk"><img src="https://avatars0.githubusercontent.com/u/10591587?v=4" width="100px;" alt="Kieran"/><br /><sub><b>Kieran</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=aMollusk" title="Code">💻</a></td>
+							<td align="center"><a href="https://github.com/Brushedoctopus"><img src="https://avatars3.githubusercontent.com/u/11570627?v=4" width="100px;" alt="Brushedoctopus"/><br /><sub><b>Brushedoctopus</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/issues?q=author%3ABrushedoctopus" title="Bug reports">🐛</a> <a href="https://github.com/paypal/recent-searches/commits?author=Brushedoctopus" title="Code">💻</a></td>
+						</tr>
+						<tr>
+							<td align="center"><a href="http://cameronpedwards.com"><img src="https://avatars3.githubusercontent.com/u/5456216?v=4" width="100px;" alt="Cameron Edwards"/><br /><sub><b>Cameron Edwards</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=cameronprattedwards" title="Code">💻</a> <a href="https://github.com/paypal/recent-searches/commits?author=cameronprattedwards" title="Tests">⚠️</a></td>
+							<td align="center"><a href="https://github.com/stereobooster"><img src="https://avatars2.githubusercontent.com/u/179534?v=4" width="100px;" alt="stereobooster"/><br /><sub><b>stereobooster</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=stereobooster" title="Code">💻</a> <a href="https://github.com/paypal/recent-searches/commits?author=stereobooster" title="Tests">⚠️</a></td>
+							<td align="center"><a href="https://github.com/1Copenut"><img src="https://avatars0.githubusercontent.com/u/934879?v=4" width="100px;" alt="Trevor Pierce"/><br /><sub><b>Trevor Pierce</b></sub></a><br /><a href="#review-1Copenut" title="Reviewed Pull Requests">👀</a></td>
+							<td align="center"><a href="http://xuefei-frank.com"><img src="https://avatars1.githubusercontent.com/u/1334982?v=4" width="100px;" alt="Xuefei Li"/><br /><sub><b>Xuefei Li</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=franklixuefei" title="Code">💻</a></td>
+							<td align="center"><a href="https://hyperlab.se"><img src="https://avatars0.githubusercontent.com/u/7252803?v=4" width="100px;" alt="Alfred Ringstad"/><br /><sub><b>Alfred Ringstad</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=alfredringstad" title="Code">💻</a></td>
+							<td align="center"><a href="https://github.com/dovidweisz"><img src="https://avatars0.githubusercontent.com/u/6895497?v=4" width="100px;" alt="D[oa]vid Weisz"/><br /><sub><b>D[oa]vid Weisz</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=dovidweisz" title="Code">💻</a></td>
+							<td align="center"><a href="https://github.com/RoystonS"><img src="https://avatars0.githubusercontent.com/u/19773?v=4" width="100px;" alt="Royston Shufflebotham"/><br /><sub><b>Royston Shufflebotham</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/issues?q=author%3ARoystonS" title="Bug reports">🐛</a> <a href="https://github.com/paypal/recent-searches/commits?author=RoystonS" title="Code">💻</a></td>
+						</tr>
+						<tr>
+							<td align="center"><a href="http://michaeldeboey.be"><img src="https://avatars3.githubusercontent.com/u/6643991?v=4" width="100px;" alt="Michaël De Boey"/><br /><sub><b>Michaël De Boey</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=MichaelDeBoey" title="Code">💻</a></td>
+							<td align="center"><a href="https://github.com/EricHenry"><img src="https://avatars3.githubusercontent.com/u/4412771?v=4" width="100px;" alt="Henry"/><br /><sub><b>Henry</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=EricHenry" title="Code">💻</a></td>
+							<td align="center"><a href="http://www.greenarrow.me"><img src="https://avatars3.githubusercontent.com/u/2180127?v=4" width="100px;" alt="Andrew Walton"/><br /><sub><b>Andrew Walton</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/issues?q=author%3Agreen-arrow" title="Bug reports">🐛</a> <a href="https://github.com/paypal/recent-searches/commits?author=green-arrow" title="Code">💻</a> <a href="https://github.com/paypal/recent-searches/commits?author=green-arrow" title="Tests">⚠️</a></td>
+							<td align="center"><a href="https://github.com/arthurdenner"><img src="https://avatars0.githubusercontent.com/u/13774309?v=4" width="100px;" alt="Arthur Denner"/><br /><sub><b>Arthur Denner</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=arthurdenner" title="Code">💻</a></td>
+							<td align="center"><a href="http://twitter.com/stipsan"><img src="https://avatars2.githubusercontent.com/u/81981?v=4" width="100px;" alt="Cody Olsen"/><br /><sub><b>Cody Olsen</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=stipsan" title="Code">💻</a></td>
+							<td align="center"><a href="https://github.com/TLadd"><img src="https://avatars0.githubusercontent.com/u/5084492?v=4" width="100px;" alt="Thomas Ladd"/><br /><sub><b>Thomas Ladd</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=TLadd" title="Code">💻</a></td>
+							<td align="center"><a href="https://github.com/lixualinta"><img src="https://avatars3.githubusercontent.com/u/34634369?v=4" width="100px;" alt="lixualinta"/><br /><sub><b>lixualinta</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=lixualinta" title="Code">💻</a></td>
+						</tr>
+						<tr>
+							<td align="center"><a href="https://twitter.com/JCofman"><img src="https://avatars2.githubusercontent.com/u/2118956?v=4" width="100px;" alt="Jacob Cofman"/><br /><sub><b>Jacob Cofman</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=JCofman" title="Code">💻</a></td>
+							<td align="center"><a href="https://github.com/jf248"><img src="https://avatars3.githubusercontent.com/u/19275184?v=4" width="100px;" alt="Joshua Freedman"/><br /><sub><b>Joshua Freedman</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=jf248" title="Code">💻</a></td>
+							<td align="center"><a href="https://github.com/AmyScript"><img src="https://avatars1.githubusercontent.com/u/24494020?v=4" width="100px;" alt="Amy"/><br /><sub><b>Amy</b></sub></a><br /><a href="#example-AmyScript" title="Examples">💡</a></td>
+							<td align="center"><a href="http://twitter.com/roginfarrer"><img src="https://avatars1.githubusercontent.com/u/9063669?v=4" width="100px;" alt="Rogin Farrer"/><br /><sub><b>Rogin Farrer</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=roginfarrer" title="Code">💻</a></td>
+							<td align="center"><a href="https://github.com/rifler"><img src="https://avatars3.githubusercontent.com/u/871583" width="100px;" alt="Dmitrii Kanatnikov"/><br /><sub><b>Dmitrii Kanatnikov</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=rifler" title="Code">💻</a></td>
+							<td align="center"><a href="https://github.com/dallonf"><img src="https://avatars2.githubusercontent.com/u/346300?v=4" width="100px;" alt="Dallon Feldner"/><br /><sub><b>Dallon Feldner</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/issues?q=author%3Adallonf" title="Bug reports">🐛</a> <a href="https://github.com/paypal/recent-searches/commits?author=dallonf" title="Code">💻</a></td>
+							<td align="center"><a href="https://samuelfullerthomas.com"><img src="https://avatars2.githubusercontent.com/u/10165959?v=4" width="100px;" alt="Samuel Fuller Thomas"/><br /><sub><b>Samuel Fuller Thomas</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=samuelfullerthomas" title="Code">💻</a></td>
+						</tr>
+						<tr>
+							<td align="center"><a href="http://audiolion.github.io"><img src="https://avatars1.githubusercontent.com/u/2430381?v=4" width="100px;" alt="Ryan Castner"/><br /><sub><b>Ryan Castner</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=audiolion" title="Code">💻</a></td>
+							<td align="center"><a href="https://github.com/silviuavram"><img src="https://avatars2.githubusercontent.com/u/11275392?v=4" width="100px;" alt="Silviu Alexandru Avram"/><br /><sub><b>Silviu Alexandru Avram</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/issues?q=author%3Asilviuavram" title="Bug reports">🐛</a> <a href="https://github.com/paypal/recent-searches/commits?author=silviuavram" title="Code">💻</a> <a href="https://github.com/paypal/recent-searches/commits?author=silviuavram" title="Tests">⚠️</a></td>
+							<td align="center"><a href="https://github.com/akronb"><img src="https://avatars1.githubusercontent.com/u/15676655?v=4" width="100px;" alt="Anton Volkov"/><br /><sub><b>Anton Volkov</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=akronb" title="Code">💻</a> <a href="https://github.com/paypal/recent-searches/commits?author=akronb" title="Tests">⚠️</a></td>
+							<td align="center"><a href="http://keegan.st"><img src="https://avatars3.githubusercontent.com/u/513363?v=4" width="100px;" alt="Keegan Street"/><br /><sub><b>Keegan Street</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/issues?q=author%3Akeeganstreet" title="Bug reports">🐛</a> <a href="https://github.com/paypal/recent-searches/commits?author=keeganstreet" title="Code">💻</a></td>
+							<td align="center"><a href="http://manueldugue.de"><img src="https://avatars1.githubusercontent.com/u/894149?v=4" width="100px;" alt="Manuel Dugué"/><br /><sub><b>Manuel Dugué</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=mdugue" title="Code">💻</a></td>
+							<td align="center"><a href="https://github.com/mkaradeniz"><img src="https://avatars2.githubusercontent.com/u/12477983?v=4" width="100px;" alt="Max Karadeniz"/><br /><sub><b>Max Karadeniz</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/commits?author=mkaradeniz" title="Code">💻</a></td>
+							<td align="center"><a href="https://medium.com/@gonchub"><img src="https://avatars3.githubusercontent.com/u/857221?v=4" width="100px;" alt="Gonzalo Beviglia"/><br /><sub><b>Gonzalo Beviglia</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/issues?q=author%3AGonchuB" title="Bug reports">🐛</a> <a href="https://github.com/paypal/recent-searches/commits?author=GonchuB" title="Code">💻</a> <a href="#review-GonchuB" title="Reviewed Pull Requests">👀</a></td>
+						</tr>
+						<tr>
+							<td align="center"><a href="https://github.com/kilrain"><img src="https://avatars2.githubusercontent.com/u/47700687?v=4" width="100px;" alt="Brian Kilrain"/><br /><sub><b>Brian Kilrain</b></sub></a><br /><a href="https://github.com/paypal/recent-searches/issues?q=author%3Akilrain" title="Bug reports">🐛</a> <a href="https://github.com/paypal/recent-searches/commits?author=kilrain" title="Code">💻</a> <a href="https://github.com/paypal/recent-searches/commits?author=kilrain" title="Tests">⚠️</a> <a href="https://github.com/paypal/recent-searches/commits?author=kilrain" title="Documentation">📖</a></td>
+							<td align="center"></td>
+							<td align="center"></td>
+							<td align="center"></td>
+							<td align="center"></td>
+							<td align="center"></td>
+							<td align="center"></td>
+						</tr>
+				</tbody></table>
+				<!-- ALL-CONTRIBUTORS-LIST:END -->
+				<p>This project follows the <a href="https://github.com/kentcdodds/all-contributors">all-contributors</a> specification.
+				Contributions of any kind welcome!</p>
+				<h2 id="license">LICENSE</h2>
+				<p>MIT</p>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_memorystorage_.html">"<wbr>Memory<wbr>Storage"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_safelocalstorage_.html">"<wbr>Safe<wbr>Local<wbr>Storage"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/___tests___memorystorage_test_.html">"__tests__/<wbr>Memory<wbr>Storage.test"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/___tests___recentsearches_test_.html">"__tests__/<wbr>Recent<wbr>Searches.test"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/___tests___safelocalstorage_test_.html">"__tests__/<wbr>Safe<wbr>Local<wbr>Storage.test"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_index_.html">"index"</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>

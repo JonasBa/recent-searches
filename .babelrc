@@ -1,0 +1,21 @@
+{
+  "presets": [
+    ["@babel/preset-env", {
+      "corejs": 3,
+      "targets": {
+        "ie": "11"
+      }
+    }],
+    "@babel/typescript"
+  ],
+  "plugins": [
+    ["module-resolver", {
+      "root": ["./lib"],
+    }],
+    "@babel/proposal-class-properties",
+    "@babel/proposal-object-rest-spread"
+  ],
+  "ignore": [
+    "**/*/__tests__/*"
+  ]
+}
