@@ -51,8 +51,9 @@ npm install --save recent-searches
 
 ## Usage
 
-> [See codesandbox example](https://codesandbox.io/s/8k21924m5l)
-
+> [Standalone codesandbox example](https://codesandbox.io/s/8k21924m5l) <br/>
+> [Algolia react-instantsearch codesandbox example](https://codesandbox.io/s/m18wjy69) <br/>
+> [Algolia InstantSearch.js codesandbox example](https://codesandbox.io/s/62j3k7097r)
 Initializing the module
 
 ```ts
