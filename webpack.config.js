@@ -7,7 +7,10 @@ const baseConfig = targetOptions => ({
     "index.min": "./lib/index.ts"
   },
   output: {
-    filename: "./[name].js",
+    filename:
+      targetOptions.libraryTarget === "umd"
+        ? `./[name].js`
+        : `./[name].${targetOptions.libraryTarget}.js`,
     library: "RecentSearches",
     ...targetOptions
   },
@@ -39,4 +42,7 @@ const baseConfig = targetOptions => ({
   }
 });
 
-module.exports = [baseConfig({ libraryTarget: "umd" })];
+module.exports = [
+  baseConfig({ libraryTarget: "umd" }),
+  baseConfig({ libraryTarget: "var" })
+];

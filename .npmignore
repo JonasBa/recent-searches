@@ -1,4 +1,5 @@
 # Ignore lib folder
+lib/
 .circleci/
 coverage/
 jest.config.js
