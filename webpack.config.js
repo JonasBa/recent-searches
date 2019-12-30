@@ -1,24 +1,23 @@
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
-module.exports = {
+const baseConfig = targetOptions => ({
+  target: "web",
   entry: {
-    "index": './lib/index.ts',
-    "index.min": './lib/index.ts'
+    index: "./lib/index.ts",
+    "index.min": "./lib/index.ts"
   },
   output: {
     filename: "./[name].js",
-    libraryExport: "default" ,
-    libraryTarget: 'umd'
+    library: "RecentSearches",
+    ...targetOptions
   },
-  mode: 'development',
-  devtool: 'source-map',
+  mode: "production",
+  devtool: "source-map",
   module: {
     rules: [
-      { 
+      {
         test: /\.ts$/,
-        use: [
-          "babel-loader"
-        ]
+        use: ["babel-loader"]
       }
     ]
   },
@@ -28,7 +27,7 @@ module.exports = {
       new UglifyJsPlugin({
         include: /\.min\.js$/,
         uglifyOptions: {
-            output: {
+          output: {
             comments: false
           }
         }
@@ -36,6 +35,8 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['.ts', '.js']
+    extensions: [".ts", ".js"]
   }
-};
+});
+
+module.exports = [baseConfig({ libraryTarget: "umd" })];
