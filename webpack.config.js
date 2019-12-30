@@ -12,6 +12,7 @@ const baseConfig = targetOptions => ({
         ? `./[name].js`
         : `./[name].${targetOptions.libraryTarget}.js`,
     library: "RecentSearches",
+    globalObject: "this",
     ...targetOptions
   },
   mode: "production",
