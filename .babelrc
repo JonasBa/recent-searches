@@ -10,7 +10,7 @@
   ],
   "plugins": [
     ["module-resolver", {
-      "root": ["./lib"],
+      "root": ["./lib"]
     }],
     "@babel/proposal-class-properties",
     "@babel/proposal-object-rest-spread"
