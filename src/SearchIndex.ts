@@ -1,6 +1,7 @@
 interface SearchIndex<T> {
     insert: (string: string, data: T) => void
     remove: (string: string) => void;
+    search: (query: string) => {results: T[]}
     clear: () => void;
 }
 
@@ -21,18 +22,34 @@ class TrieIndex<T extends Record<any, any>> implements SearchIndex<T> {
     public insert(string: string, data: T): void {
         if(!this.reverseIndex[string]) this.reverseIndex[string] = {}
         this.reverseIndex[string][getKey(this.options.key, data)] = data
-
         this.trieInsert(string, data, this.trie)
     }
 
     public remove(string: string) {
-        delete this.reverseIndex[string]
-        this.trieRemove(string, this.trie, null)
+        if(this.reverseIndex[string]){
+            delete this.reverseIndex[string]
+            this.trieRemove(string, this.trie, null)
+        }
+    }
+
+    public search(query: string): {results: T[]} {
+        const matches: T[] = []
+        this.trieSearch(query, this.trie, matches)
+
+        return {
+            results: matches
+        }
     }
 
     public clear(){
         this.reverseIndex = {}
         this.trie = {}
+    }
+
+    private trieSearch(query: string, trie: Trie<T>,matches: T[]): T[] {
+        for(let i = 0; i < query.length; i++) {
+            this.trieSearch()
+        }
     }
 
     private trieInsert(string: string, data: T, tree: Trie<T>) {
