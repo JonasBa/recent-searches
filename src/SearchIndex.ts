@@ -34,7 +34,7 @@ class TrieIndex<T extends Record<any, any>> implements SearchIndex<T> {
 
     public search(query: string): {results: T[]} {
         const matches: T[] = []
-        this.trieSearch(query, this.trie, matches)
+        this.trieSearch("", query, this.trie, matches)
 
         return {
             results: matches
@@ -46,10 +46,70 @@ class TrieIndex<T extends Record<any, any>> implements SearchIndex<T> {
         this.trie = {}
     }
 
-    private trieSearch(query: string, trie: Trie<T>,matches: T[]): T[] {
-        for(let i = 0; i < query.length; i++) {
-            this.trieSearch()
+    private trieSearch(matchedPrefix: string, query: string, trie: Trie<T>, matches: T[]): void {
+        let length = query.length;
+        let search: string;
+
+        while(length--) {
+            search = query.substr(0, length + 1)
+            const match = trie[search]
+
+            if(match) {
+                const carryOverPrefix = query.substr(length+1)
+                this.trieSearch(matchedPrefix + search, carryOverPrefix, match, matches)
+                return
+            }
         }
+
+        const siblings = Object.keys(trie)
+
+
+        siblings.some(sibling => {
+            let s = query.length
+            // console.log("Length is", s)
+            if (!s) {
+                // console.log("No query left, include self value and all children", matchedPrefix, sibling)
+                if(this.reverseIndex[matchedPrefix]){
+                    matches.push(...Object.values(this.reverseIndex[matchedPrefix]))
+                }
+                matches.push(...this.values(trie[sibling], matchedPrefix + sibling));
+            }
+
+            while (s--) {
+                // console.log(sibling.substr(0, s+1), matchedPrefix.substr(0, s+1), sibling, matchedPrefix)
+                if (sibling.substr(0, s+1) === matchedPrefix.substr(0, s+1)) {
+                    // console.log("Match", sibling.substr(0,s+1), "get values for", trie[sibling])
+                    matches.push(...this.values(trie[sibling], matchedPrefix + sibling))
+                    return true
+                }
+            }
+            return false
+        })
+    }
+
+    values (trie: Trie<T>, matchedPrefix: string) {
+        const keys = Object.keys(trie)
+        let matches: T[] = []
+        console.log("Collecting value on", trie)
+
+        if (this.reverseIndex[matchedPrefix]) {
+            matches.push(...Object.values(this.reverseIndex[matchedPrefix]))
+        }
+        
+        // Recursively descend down to fetch all words
+        if (keys.length) {
+            keys.some(key => {
+                if (Object.keys(trie[key]).length) {
+                    matches = matches.concat(this.values(trie[key], matchedPrefix + key));
+                    return
+                }
+                if(this.reverseIndex[matchedPrefix + key]){
+                    matches.push(...Object.values(this.reverseIndex[matchedPrefix + key]));
+                }
+            });
+        }
+
+        return matches;
     }
 
     private trieInsert(string: string, data: T, tree: Trie<T>) {
@@ -61,12 +121,6 @@ class TrieIndex<T extends Record<any, any>> implements SearchIndex<T> {
             const match = tree[prefix]
 
             if(match){
-                // Found prefix, moving into subtrie
-                // if (!Object.keys(tree[prefix]).length) {
-                //     // If one word is a pure subset of another word, the prefix 
-                //     // should also point to the subset.
-                //     tree[prefix][""] = {};
-                // }
                 const carryOverPrefix = string.substr(length+1)
                 this.trieInsert(carryOverPrefix, data, match)
                 return
@@ -91,7 +145,6 @@ class TrieIndex<T extends Record<any, any>> implements SearchIndex<T> {
         });
 
         if(!siblingFound){
-            console.log("Insert", string, data)
             tree[string] = {}
         }
     }
