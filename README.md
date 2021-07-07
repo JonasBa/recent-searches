@@ -6,7 +6,6 @@
 <p align="center" style="font-size: 1.2rem;">A zero dependency JavaScript module that helps anyone build recent searches functionality into their search bar.
 </p>
 
-
 <hr />
 
 [![Build Status][build-badge]][build]
@@ -22,9 +21,11 @@
 Building recent searches experience can be trickier than you think (expiry of queries, ranking of recent queries, handling storage etc...)
 
 ## Solution
+
 recent-searches module helps you build that experience without having to focus on the edge cases and technical details. If available, uses [localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) to store suggestions cross sessions and in the rare cases where it might not be available uses a fallback memory storage, thus loosing it's cross session functionality.
 
-__The module handles:__
+**The module handles:**
+
 - Searching and retrieving recent searches
 - Ranking of searches and decaying their popularity (with different ranking options)
 - Saving and expiring of searches through LocalStorage or MemoryStorage
@@ -45,34 +46,32 @@ __The module handles:__
 ## Installation
 
 recent-searches is published on npm's public registry, you can install it as a dependancy of your project with the following command.
+
 ```
 npm install --save recent-searches
 ```
 
 ## Usage
 
-> [Standalone codesandbox example](https://codesandbox.io/s/8k21924m5l) <br/>
-> [Algolia react-instantsearch codesandbox example](https://codesandbox.io/s/m18wjy69) <br/>
-> [Algolia InstantSearch.js codesandbox example](https://codesandbox.io/s/62j3k7097r)
-Initializing the module
+> [Standalone codesandbox example](https://codesandbox.io/s/8k21924m5l) <br/> > [Algolia react-instantsearch codesandbox example](https://codesandbox.io/s/m18wjy69) <br/> > [Algolia InstantSearch.js codesandbox example](https://codesandbox.io/s/62j3k7097r)
+> Initializing the module
 
 ```ts
-import RecentSearches from 'recent-searches'
+import RecentSearches from 'recent-searches';
 
 const searches = new RecentSearches({
   ttl: number, // Optional: ttl of searches in milliseconds, default to 24h (1000 * 60 * 60 * 24)
   limit: number, // Optional: max number of entries that will be persisted, default is 50
   namespace: string, // Optional: custom localStorage namespace
-  ranking: string // Optional: ranking strategy of recent searches, "PROXIMITY" | "TIME" | "PROXIMITY_AND_TIME", default is "PROXIMITY_AND_TIME"
-})
-
+  ranking: string, // Optional: ranking strategy of recent searches, "PROXIMITY" | "TIME" | "PROXIMITY_AND_TIME", default is "PROXIMITY_AND_TIME"
+});
 ```
 
 Setting and retrieving relevant searches.
 
 ```ts
 // Retrieve searches for a given query
-const previousSearchesForJohn = searches.getRecentSearches("John")
+const previousSearchesForJohn = searches.getRecentSearches('John');
 /* 
   [ 
     {query: "John", data: {...}, timestamp: ...},
@@ -81,8 +80,7 @@ const previousSearchesForJohn = searches.getRecentSearches("John")
 */
 
 // To set a recent search
-searches.setRecentSearch("John", resultData)
-
+searches.setRecentSearch('John', resultData);
 ```
 
 If you built something using recent-searches that you want to show, feel free to send us a link and we'll include it to the documentation!

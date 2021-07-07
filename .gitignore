@@ -1,17 +1,4 @@
-
-# dependencies
-/node_modules
-
-# production
-/dist
-
-# tests
-/coverage
-
-# misc
+*.log
 .DS_Store
-.env
-npm-debug.log
-
-# errors
-yarn-error.log
+node_modules
+dist

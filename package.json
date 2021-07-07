@@ -1,61 +1,55 @@
 {
-  "name": "recent-searches",
-  "version": "1.0.3",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/JonasBa/recent-searches.git"
-  },
-  "author": "Jonas Badalic <jonas@badalic.com>",
-  "main": "dist/index.js",
-  "scripts": {
-    "build": "npm run clean && npm run build:types && npm run build:webpack",
-    "build:webpack": "webpack --config webpack.config.js",
-    "build:types": "tsc --p tsconfig.json",
-    "clean": "rm -rf ./dist",
-    "docgen": "typedoc --out docs ./lib",
-    "lint": "tslint ./lib/**/*.ts -e \"./**/*/__tests__/*.ts\"",
-    "release": "npm run lint && npm run clean && npm run build && npm version && npm publish",
-    "release:beta": "npm run lint && npm run clean && npm run build && npm version && npm publish --tag beta",
-    "postversion": "git push && git push --tags",
-    "test": "jest --coverage",
-    "test:watch": "jest --watch"
-  },
-  "keywords": [
-    "search",
-    "algolia",
-    "elasticsearch",
-    "swiftype"
-  ],
-  "types": "dist/index.d.ts",
+  "version": "0.1.0",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/JonasBa/recent-searches/issues"
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=10"
   },
-  "homepage": "https://github.com/JonasBa/recent-searches#readme",
-  "description": "A JavaScript module to help anyone easily build recent searches functionality into their search.",
-  "directories": {
-    "lib": "lib"
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why"
   },
+  "peerDependencies": {},
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "name": "recent-searches",
+  "author": "JonasBa",
+  "module": "dist/recent-searches.esm.js",
+  "size-limit": [
+    {
+      "path": "dist/recent-searches.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/recent-searches.esm.js",
+      "limit": "10 KB"
+    }
+  ],
   "devDependencies": {
-    "@babel/cli": "^7.5.5",
-    "@babel/core": "^7.5.5",
-    "@babel/plugin-proposal-class-properties": "^7.5.5",
-    "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
-    "@babel/preset-env": "^7.5.5",
-    "@babel/preset-typescript": "^7.3.3",
-    "@types/jest": "^24.0.18",
-    "babel-loader": "^8.0.6",
-    "babel-plugin-module-resolver": "^3.2.0",
-    "core-js": "^3.2.1",
-    "jest": "^24.9.0",
-    "jest-localstorage-mock": "^2.4.0",
-    "ts-jest": "^24.0.2",
-    "tslint": "^5.19.0",
-    "tslint-config-prettier": "^1.18.0",
-    "typescript": "^3.5.3",
-    "uglifyjs-webpack-plugin": "^2.2.0",
-    "webpack": "^4.39.2",
-    "webpack-cli": "^3.3.7"
-  },
-  "dependencies": {}
+    "@size-limit/preset-small-lib": "^4.10.2",
+    "husky": "^6.0.0",
+    "size-limit": "^4.10.2",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.2.0",
+    "typescript": "^4.2.4"
+  }
 }
